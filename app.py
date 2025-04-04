@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify, render_template
 import cv2
-from deepface import DeepFace as pito
 import face_recognition
 import numpy as np
 import base64
