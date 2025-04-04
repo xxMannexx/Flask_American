@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/estilos_reconocimiento.css">
+    <title>Video en Flask</title>
+</head>
+
+<body>
+    <h1>Captura de Video</h1>
+    <video id="video" autoplay playsinline></video>
+    <p id="respuesta"></p>
+    <script>
+        navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+            .then(stream => {
+                document.getElementById("video").srcObject = stream;
+                let video = document.getElementById("video");
+                let canvas = document.createElement("canvas");
+                let contexto = canvas.getContext("2d");
+
+                function enviarVideo() {
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                    contexto.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+                    let imagen = canvas.toDataURL("image/jpeg");  // Convierte a Base64
+
+                    // Enviar el frame a Flask
+                    fetch("/video_recibido", {
+                        method: "POST",
+                        body: JSON.stringify({ image: imagen }),
+                        headers: { "Content-Type": "application/json" }
+
+                    })
+                    .then(response => response.json())  // Espera la respuesta JSON de Flask
+                    .then(respuesta => {
+                    document.getElementById('respuesta').innerText = respuesta.message;  // Actualiza el texto
+                    })
+
+
+                    setTimeout(enviarVideo, 100);
+                }
+
+                enviarVideo();
+            })
+    </script>
+</body>
+</html>
