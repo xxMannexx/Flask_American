@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrate</title>
+    <link rel="stylesheet" href="../static/estilos_registro.css">
+</head>
+<body>
+    <div class="CajaResgistro">
+        <form method="POST" action="">
+            <h2>Registro</h2>
+            <div class="CajaTexto">
+                <span class="iconos"><ion-icon name="person-circle"></ion-icon></span>
+                <input type="text" name="nombre" required>
+                <label>Nombre</label>
+            </div>
+            <div class="CajaTexto">
+                <span class="iconos"><ion-icon name="mail"></ion-icon></span>
+                <input type="email" required>
+                <label>Correo</label>
+            </div>
+            <div class="CajaTexto">
+                <span class="iconos"><ion-icon name="call"></ion-icon></span>
+                <input type="number" required>
+                <label>Telefono</label>
+            </div>
+            <div class="CajaTexto">
+                <span class="iconos"><ion-icon name="calendar"></ion-icon></span>
+                <input type="date" required>
+                <label></label>
+            </div>
+            <button type="submit">Registrar</button>
+            <div class="Inicio_sesion">
+                <p>¿Ya tienes cuenta? <a href="#">Iniciar sesion</a></p>
+            </div>
+        </form>
+    </div>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

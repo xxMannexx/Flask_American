@@ -9,7 +9,9 @@
 
 <body>
     <h1>Captura de Video</h1>
-    <video id="video" autoplay playsinline></video>
+    <div class="video">
+        <video id="video" autoplay playsinline></video>
+    </div>
     <p id="respuesta"></p>
     <script>
         navigator.mediaDevices.getUserMedia({ video: true, audio: false })
