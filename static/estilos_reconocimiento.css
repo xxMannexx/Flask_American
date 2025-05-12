@@ -20,22 +20,6 @@ h1{
     color: white;
 }
 
-p{
-    text-transform: uppercase;
-    color: white;
-    text-align: center;
-    transform: translateY(550px);
-}
-
-.video{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scaleX(-1);
-}
-.video video{
-    border-radius: 10px;
-}
 
 @property --angle {
   syntax: "<angle>";
@@ -43,7 +27,7 @@ p{
   inherits: false;
 }
 
-.video::after, .video::before {
+video::after, video::before {
     content: "";
     position: absolute;
     height: 100%;
@@ -59,7 +43,7 @@ p{
     border-radius: 10px;
     animation: 10s spin linear infinite;
 }
-.video::before{
+video::before{
     filter: blur(2rem);
 }
 

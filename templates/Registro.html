@@ -2,41 +2,60 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Registrate</title>
+    <title>American Express: Registrate</title>
     <link rel="stylesheet" href="../static/estilos_registro.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
 </head>
 <body>
-    <div class="CajaResgistro">
-        <form method="POST" action="">
-            <h2>Registro</h2>
-            <div class="CajaTexto">
-                <span class="iconos"><ion-icon name="person-circle"></ion-icon></span>
-                <input type="text" name="nombre" required>
-                <label>Nombre</label>
+    <section>
+        <div class="row g-0">
+            <div class="col-lg-6 d-none d-lg-flex justify-content-center align-items-center">
+              <img class="img-fluid" src="../static/Imagenes/americanlogo.png" alt="american express">
             </div>
-            <div class="CajaTexto">
-                <span class="iconos"><ion-icon name="mail"></ion-icon></span>
-                <input type="email" required>
-                <label>Correo</label>
+            <div class="col-lg-6 d-flex flex-column justify-content-center align-items-center min-vh-100">
+              <div class="pt-lg-4 pb-lg-3 p-4 w-100">
+                <img src="../static/Imagenes/landinglogo.png" class="img-fluid" alt="Logo American Express" id="logo">
+              </div>
+              <div class="px-lg-4 py-lg-4 p-4 w-100 align-self-center">
+                    <h1 class="fw-bold mb-4" style="color: #EFB810FF;font-family: 'Inter', sans-serif;">Bienvenido...</h1>
+                    <form class="mb-5">
+                      <div class="form-floating mb-3">
+                        <input style="color: #E0CDA9;caret-color: #F6C445;" type="email" class="form-control bg-transparent border-bottom-0" id="Correo" aria-describedby="Correo" placeholder="example@correo.com" required>
+                        <label for="Correo" class="form-label" style="color: #b8a780;font-family: 'Inter', sans-serif;">Correo Electronico</label>
+                      </div>
+                      <div class="form-floating mb-3">
+                        <input style="color: #E0CDA9;caret-color: #F6C445;" type="text" class="form-control bg-transparent border-bottom-0" id="Nombre" placeholder="Nombre" required>
+                        <label for="Nombre" class="form-label" style="color: #b8a780;font-family: 'Inter', sans-serif;">Nombre(s)</label>
+                      </div>
+                      <div class="form-floating mb-3">
+                        <input style="color: #E0CDA9;caret-color: #F6C445;" type="text" class="form-control bg-transparent border-bottom-0" id="Apellidos" aria-describedby="Apellidos" placeholder="Apellidos" required>
+                        <label for="Apellidos" class="form-label" style="color: #b8a780;font-family: 'Inter', sans-serif;">Apellidos</label>
+                      </div>
+                      <div class="form-floating input-group mb-3">
+                        <span class="input-group-text bg-black border-bottom-0" style="color: #b8a780;font-family: 'Inter', sans-serif;">+52</span>
+                        <input style="color: #E0CDA9;caret-color: #F6C445;" type="tel" class="form-control bg-transparent border-bottom-0" id="Telefono" name="telefono" pattern="\d{10}" placeholder="1234567890" maxlength="10" required="">
+                        <label for="Telefono" class="form-label ps-5 mx-3" style="color: #b8a780;font-family: 'Inter', sans-serif;">Numero Telefonico</label>
+                      </div>
+                      <div class="form-floating mb-3">
+                        <input style="color: #E0CDA9;caret-color: #F6C445;" type="date" class="form-control bg-transparent border-bottom-0" id="Fecha" name="Fecha" required>
+                        <label for="Fecha" class="form-label" style="color: #b8a780;font-family: 'Inter', sans-serif;">Fecha de Nacimiento</label>
+                        <div class="form-text pt-2 pb-3" style="color: #A8925C;font-family: 'Inter', sans-serif;" id="texto">Al presionar el boton sera redirigido a el uso de la camara para obtener sus datos biometricos.</div>
+                      </div>
+                      <button type="submit" class="btn w-100" id="boton_reg">Registrarse</button>
+                    </form>
+                    <div class="text-center">
+                       <p style="color: #A8925C;font-family: 'Inter', sans-serif;" class="d-inline-block mb-0">¿Ya tienes cuenta?</p> <a href="/video" class="text-light fw-bold text-decoration-none">Inicia sesion ahora</a>
+                    </div>
+                </div>
             </div>
-            <div class="CajaTexto">
-                <span class="iconos"><ion-icon name="call"></ion-icon></span>
-                <input type="number" required>
-                <label>Telefono</label>
-            </div>
-            <div class="CajaTexto">
-                <span class="iconos"><ion-icon name="calendar"></ion-icon></span>
-                <input type="date" required>
-                <label></label>
-            </div>
-            <button type="submit">Registrar</button>
-            <div class="Inicio_sesion">
-                <p>¿Ya tienes cuenta? <a href="#">Iniciar sesion</a></p>
-            </div>
-        </form>
-    </div>
+        </div>
+    </section>
 
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+
 </body>
 </html>

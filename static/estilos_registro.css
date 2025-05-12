@@ -1,141 +1,59 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+#logo {
+    width: 150px;
+    height: 35px;
 }
 
 body{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background: url(Imagenes/fondo.png) no-repeat;
-    background-size: cover;
-    background-position: center;
+    background-color: #000000 !important;;
 }
 
-.CajaResgistro{
-    position: relative;
-    width: 400px;
-    height: 450px;
-    background: transparent;
-    border: 2px solid rgba(143, 143, 143, 0.5);
-    border-radius: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    backdrop-filter: brightness(1.2);
+form {
+  animation: fadeIn 0.8s ease-in;
 }
 
-h2{
-    font-size: 2em;
-    color: #fff;
-    text-align: center;
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.CajaTexto{
-    position: relative;
-    width: 310px;
-    margin: 25px 0;
-    border-bottom: 2px solid #fff;
+
+form [type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1); /* Invierte los colores */
+    border-radius: 50%; /* Redondea el icono */
 }
 
-.CajaTexto label{
-    position: absolute;
-    top: 50%;
-    left: 5px;
-    transform: translateY(-50%);
-    font-size: 0.9em;
-    color: #fff;
-    pointer-events: none;
-    transition: .5s;
+#texto {
+  color: #d4af37;
+  font-size: 0.85rem;
+  opacity: 0.8;
+  font-style: italic;
 }
 
-.CajaTexto input:focus~label,
-.CajaTexto input:valid~label{
-    top: -5px;
-    font-size: 0.5em;
-}
 
-.CajaTexto input{
-    width: 100%;
-    background: transparent;
-    border: none;
-    outline: none;
-    font-size: 1em;
-    color: #fff;
-    padding: 0 8px 0 5px;
-}
-
-input[type="date"]::-webkit-calendar-picker-indicator {
-  display: none;
-  -webkit-appearance: none;
-}
-input[type=number]::-webkit-outer-spin-button,
-input[type=number]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.CajaTexto .iconos{
-    position: absolute;
-    right: 8px;
-    color: #fff;
-    font-size: 1em;
-    line-height: 5px;
-}
-
-button{
-    width: 100%;
-    height: 30px;
-    background: transparent;
-    border: 2px solid #fff;
-    border-radius: 15px;
-    color: #fff;
+#boton_reg {
+    background-color: #F6C445;
+    color: #121212;
     font-size: 15px;
     font-weight: 500;
     transition: all .6s ease;
 }
 
-button:hover{
-    transform: scale(1.03);
-    border: 2px solid #919190;
-    color: #a8a8a8;
+#boton_reg:hover {
+     background: linear-gradient(90deg, #FFD700, #F6C445);
+     transform: translateY(-5px);
+     box-shadow: 0 0 20px rgba(246, 196, 69, 0.5);
 }
 
-.Inicio_sesion{
-    font-size: .9em;
-    color: #fff;
-    text-align: center;
-    margin: 20px 0 10px;
+#boton_reg:active {
+     background: linear-gradient(90deg, #FFD700, #F6C445);
+     transform: translateY(-5px);
+     box-shadow: 0 0 20px rgba(246, 196, 69, 0.5);
 }
 
-.Inicio_sesion p{
-    color: #fff;
-    text-decoration: none;
-}
-
-.Inicio_sesion a{
-    text-decoration: none;
-    color: #918f95;
-}
-
-.Inicio_sesion p a:hover{
-    text-decoration: underline;
-}
-
-@media (max-width: 360px){
-    .CajaResgistro{
-        width: 100%;
-        height: 100vh;
-        border: none;
-        border-radius: 0;
-    }
-
-    .CajaTexto{
-        width: 290px;
-    }
+@media (max-width: 992px) {
+  section .row {
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+  }
 }

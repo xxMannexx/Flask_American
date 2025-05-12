@@ -87,8 +87,13 @@ section{
     gap: 2rem;
 }
 
+.Banner_Img{
+    display: flex;
+    justify-content: center;
+}
+
 .Banner_Img img{
-    width: 100%;
+    width: 50%;
     height: auto;
 }
 
@@ -170,3 +175,5 @@ section{
     transform: translateY(-5px);
     color: var(--main-color);
 }
+
+

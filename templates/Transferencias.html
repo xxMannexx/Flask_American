@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Transferencias</title>
+    <link rel="stylesheet" href="../static/estilos_registro.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+</head>
+<body>
+    <section>
+        <div class="row g-0">
+            <div class="col-lg-12 d-flex flex-column justify-content-center align-items-center min-vh-100">
+              <div class="pt-lg-4 pb-lg-3 p-4 w-100">
+                <img src="../static/Imagenes/landinglogo.png" class="img-fluid" alt="Logo American Express" id="logo">
+              </div>
+              <div class="px-lg-4 py-lg-4 p-4 w-100 align-self-center">
+                    <h1 class="fw-bold mb-4" style="color: #EFB810FF;font-family: 'Inter', sans-serif;">Transferencias</h1>
+                    <form class="mb-5">
+                      <div class="form-floating mb-3">
+                        <input style="color: #E0CDA9;caret-color: #F6C445;" type="tel" class="form-control bg-transparent border-bottom-0" id="Destinatario" aria-describedby="Destinatario" placeholder="Tarjeta De Destino" required>
+                        <label for="Destinatario" class="form-label" style="color: #b8a780;font-family: 'Inter', sans-serif;">Destinatario (No. de Tarjeta)</label>
+                      </div>
+                      <div class="form-floating input-group mb-3">
+                        <span class="input-group-text bg-black border-bottom-0" style="color: #b8a780;font-family: 'Inter', sans-serif;">$</span>
+                        <input style="color: #E0CDA9;caret-color: #F6C445;" type="tel" class="form-control bg-transparent border-bottom-0" id="Monto" name="Monto"  placeholder="123 000" maxlength="7" required>
+                        <label for="Telefono" class="form-label ps-5 mx-3" style="color: #b8a780;font-family: 'Inter', sans-serif;">Monto</label>
+                        <span class="input-group-text bg-black border-bottom-0" style="color: #b8a780;font-family: 'Inter', sans-serif;">MXN</span>
+                      </div>
+                      <div class="form-floating mb-3">
+                        <input style="color: #E0CDA9;caret-color: #F6C445;" type="text" class="form-control bg-transparent border-bottom-0" id="Concepto" aria-describedby="Concepto" placeholder="Concepto" required>
+                        <label for="Concepto" class="form-label" style="color: #b8a780;font-family: 'Inter', sans-serif;">Concepto</label>
+                      </div>
+                      <button type="submit" class="btn w-100" id="boton_reg">Generar Transferencia</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+
+</body>
+</html>

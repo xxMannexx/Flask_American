@@ -1,0 +1,13 @@
+@app.route("/video_recibido", methods=["POST","GET"])
+def video_recibido():
+    url = request.json["image"]
+    base = base64.b64decode(url.split(",")[1])
+    matriz = np.frombuffer(base, np.uint8)
+    frame = cv2.imdecode(matriz, cv2.IMREAD_COLOR)
+
+    detectar_cara = face_recognition.face_locations(frame)
+
+    if detectar_cara:
+        return jsonify({"message": "Hay rostro detectado"})
+    else:
+        return jsonify({"message": "No se detectó una cara."})

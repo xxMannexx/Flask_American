@@ -1,0 +1,57 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#main {
+    height: 100dvh;
+    background: #191919;
+    overflow-y: auto;
+}
+
+
+#carta_gastos {
+    border: #414452 2px solid;
+    border-radius: 5px;
+    background-color: #191919;
+    color: #EFB810FF;
+    font-family: 'IBM Plex Sans', sans-serif;
+}
+
+#carta_ingresos {
+    border: #414452 2px solid;
+    border-radius: 5px;
+    background-color: #191919;
+    color: #EFB810FF;
+    font-family: 'IBM Plex Sans', sans-serif;
+}
+
+#carta_saldo {
+    border: #414452 2px solid;
+    border-radius: 5px;
+    background-color: #191919;
+    color: #EFB810FF;;
+    font-family: 'IBM Plex Sans', sans-serif;
+}
+
+
+#carta_grafico {
+    border: #414452 2px solid;
+    border-radius: 5px;
+    background-color: #191919;
+    color: #EFB810FF;
+    font-family: 'IBM Plex Sans', sans-serif;
+}
+
+
+#grafica {
+    height: 325px;
+    max-height: 325px;
+    width: 100%;
+}
+
+
+
+
+
