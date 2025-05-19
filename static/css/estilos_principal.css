@@ -1,0 +1,64 @@
+body {
+    height: 100vh;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 200px;
+    padding-top: 20px;
+    background-color: #0c0c0c;
+    transition: width 0.3s;
+}
+
+.sidebar .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 10px 20px;
+}
+
+
+.sidebar .icon {
+    color: #c8a951;
+}
+
+.sidebar .description {
+    color: #d1c7a1;
+    font-size: 14px;
+}
+
+.sidebar .nav-link:hover {
+    background-color: #1f2023;
+}
+
+.main-content {
+    height: 100%;
+    margin-left: 200px;
+}
+
+iframe {
+    width: 100%;
+    height: 100%;
+}
+
+
+@media (max-width: 480px) {
+    .sidebar {
+        width: 60px;
+    }
+
+    .sidebar .description{
+        display: none;
+    }
+
+    .sidebar .nav-link {
+        justify-content: center;
+    }
+
+    .main-content {
+        margin-left: 60px;
+    }
+}

@@ -35,8 +35,8 @@ header{
 }
 
 .logo1{
-    width: 150px;
-    height: 50px;
+    width: 120px;
+    height: 35px;
 }
 
 
@@ -78,7 +78,7 @@ section{
     position: relative;
     width: 100%;
     height: 100vh;
-    background: url(Imagenes/fondo.png);
+    background: url(../Imagenes/fondo.png);
     background-size: cover;
     background-position: center;
     display: grid;

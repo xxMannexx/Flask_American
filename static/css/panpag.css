@@ -1,0 +1,31 @@
+body{
+    color: black;
+}
+.color{
+    background-color: black;
+    color: gold;
+}
+.color_texto{
+    color: gold;
+}
+.input:focus{
+    background: black;
+    color: gold;
+}
+.si{
+    max-width: 418.66px;
+}
+.boton{
+    background: gold;
+    color: white;
+}
+.borde{
+    border-color: yellow;
+    border-top: 0;
+    border-right: 0;
+    border-left: 0;
+}
+.borde2{
+    border-color: yellow;
+    border-top: 0;
+}

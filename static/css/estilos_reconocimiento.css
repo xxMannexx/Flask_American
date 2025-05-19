@@ -8,7 +8,7 @@
 body{
     width: 100%;
     height: 100vh;
-    background: url(Imagenes/fondo.png);
+    background: url(../Imagenes/fondo.png);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
