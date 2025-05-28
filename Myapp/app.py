@@ -10,15 +10,15 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return render_template("Inicio.html")  # Carga la página con la cámara
+    return render_template("templates/Inicio.html")  # Carga la página con la cámara
 
 @app.route("/iniciar_sesion")
 def iniciar_sesion():
-    return render_template("Registro.html")
+    return render_template("templates/Registro.html")
 
 @app.route("/video")
 def llamar_video():
-    return render_template('reconocimiento.html')
+    return render_template('templates/reconocimiento.html')
 
 @app.route("/video_recibido", methods=["POST","GET"])
 def video_recibido():
@@ -29,7 +29,7 @@ def video_recibido():
     usuario_id = 'Osw123'
 
 
-    carpeta_usuario = os.path.join('imagenes_usuarios',usuario_id)
+    carpeta_usuario = os.path.join('imagenes_usuarios', usuario_id)
 
     #Crea la carpeta si no exite
     os.makedirs(carpeta_usuario, exist_ok=True)
