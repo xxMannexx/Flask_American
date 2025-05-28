@@ -1,13 +1,13 @@
 from deepface import DeepFace
 
-# # try:
-# #     try:
-# #         raise ValueError("Primer error")
-# #     except ValueError as e:
-# #         raise RuntimeError("Segundo error") from e
-# # except Exception as e:
-# #     print("Segundo error:", e)
-# #     print("Primer error (causa):", e.__cause__)
+ # try:
+ #     try:
+ #        raise ValueError("Primer error")
+ #     except ValueError as e:
+ #         raise RuntimeError("Segundo error") from e
+ # except Exception as e:
+ #     print("Segundo error:", e)
+ #     print("Primer error (causa):", e.__cause__)
 # from deepface import DeepFace
 #
 #
@@ -15,7 +15,7 @@ from deepface import DeepFace
 #
 # try:
 #     result = DeepFace.verify(
-#         img1_path="./fotos/foto.png",
+#         img1_path="./fotos/ric.png",
 #         img2_path="./fotos/ric.png",
 #         model_name="Facenet",
 #         detector_backend="retinaface",
@@ -30,13 +30,13 @@ from deepface import DeepFace
 #     print(causa)
 #     if str(causa) == 'Spoof detected in given image.':
 #         print('Se detecto un intento de suplantacion de imagen.')
-#
-face = DeepFace.extract_faces(
-    img_path = 'fotos/Img2.png',
-    anti_spoofing = True
-)
 
-print(face)
+# face = DeepFace.extract_faces(
+#     img_path = 'fotos/Img2.png',
+#     anti_spoofing = True
+# )
+#
+# print(face)
 
 # import os
 # from deepface import DeepFace
@@ -80,8 +80,8 @@ print(face)
 #     print("Verificación fallida.")
 
 
-r = DeepFace.extract_faces(img_path='fotos/foto.png', anti_spoofing=True)
-
-print(r)
+# r = DeepFace.extract_faces(img_path='fotos/foto.png', anti_spoofing=True)
+#
+# print(r)
 
 

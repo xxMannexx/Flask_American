@@ -19,3 +19,8 @@ h1 {
 
 }
 
+.table.table-dark td {
+    background-color: #000;
+    color: #fff ;
+}
+

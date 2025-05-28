@@ -1,3 +1,5 @@
+import datetime
+
 from flask import Flask, request, jsonify, render_template
 import cv2
 import numpy as np
@@ -18,20 +20,29 @@ def iniciar_sesion():
 def llamar_video():
     return render_template('reconocimiento.html')
 
-# @app.route("/video_recibido", methods=["POST","GET"])
-# def video_recibido():
-#     url = request.json["image"]
-#     base = base64.b64decode(url.split(",")[1])
-#     matriz = np.frombuffer(base, np.uint8)
-#     frame = cv2.imdecode(matriz, cv2.IMREAD_COLOR)
-#
-#     detectar_cara = face_recognition.face_locations(frame)
-#
-#     if detectar_cara:
-#         return jsonify({"message": "Hay rostro detectado"})
-#     else:
-#         return jsonify({"message": "No se detectó una cara."})
+@app.route("/video_recibido", methods=["POST","GET"])
+def video_recibido():
+    if 'imagen' not in request.files:
+        return jsonify({'error': 'No se encontro el archivo'}), 400
+
+    imagen = request.files['imagen']
+    usuario_id = 'Osw123'
+
+
+    carpeta_usuario = os.path.join('imagenes_usuarios',usuario_id)
+
+    #Crea la carpeta si no exite
+    os.makedirs(carpeta_usuario, exist_ok=True)
+
+    nombre_archivo = usuario_id + datetime.datetime.now().strftime("%Y%m%d%H%M%S") + ".jpeg"
+    ruta_completa = os.path.join(carpeta_usuario, nombre_archivo)
+
+    imagen.save(ruta_completa)
+
+    return jsonify({'mensaje': f'Imagen guardada en {ruta_completa}'})
+
+
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
