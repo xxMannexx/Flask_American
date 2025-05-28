@@ -1,0 +1,39 @@
+<script>
+    const video = document.getElementById("video");
+    const botonCaptura = document.getElementById("capturarBtn");
+    const canvas = document.createElement("canvas");
+    const contexto = canvas.getContext("2d");
+
+    navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+        .then(stream => {
+            video.srcObject = stream;
+        })
+        .catch(error => {
+            console.error("Error al acceder a la cámara:", error);
+            document.getElementById('respuesta').innerText = "No se pudo acceder a la cámara.";
+        });
+
+    botonCaptura.addEventListener("click", () => {
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        contexto.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        canvas.toBlob(function(blob) {
+            const formData = new FormData();
+            formData.append("imagen", blob, 'captura.jpg');
+
+            fetch('/video_recibido', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(respuesta => {
+                document.getElementById('respuesta').innerText = respuesta.mensaje || respuesta.error;
+            })
+            .catch(error => {
+                console.error("Error al enviar la imagen:", error);
+                document.getElementById('respuesta').innerText = "Error en el servidor.";
+            });
+        }, 'image/jpeg');
+    });
+</script>
