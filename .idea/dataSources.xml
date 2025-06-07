@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:mysql://gondola.proxy.rlwy.net:50906/railway</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="x@localhost" uuid="c7df1d2b-a592-409b-a80c-ed09c11fd7fb">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/x</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

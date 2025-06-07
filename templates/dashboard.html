@@ -47,40 +47,42 @@
                     <div class="card shadow h-100">
                         <div class="card-body" id="carta_grafico">
                             <h3 class="card-title">Grafico</h3>
-                            <canvas id="grafica"></canvas>
-                            <script>
-                                const labels = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']
+{#                                <img src="{{ url_for('matplot') }}" alt="fallo">#}
 
-                                const dataset1 = {
-                                    label: "Ingresos",
-                                    data: [0,375,750,1500],
-                                    borderColor: 'rgba(255, 215, 0, 0.8)',
-                                    fill: false,
-                                    tension: 0.1
-                                };
-
-                                const dataset2 = {
-                                    label: "Gastos",
-                                    data: [0,45,90,180],
-                                    borderColor: 'rgba(160, 160, 160, 0.8)',
-                                    fill: false,
-                                    tension: 0.1
-                                };
-
-                                const graph = document.querySelector("#grafica");
-
-                                const data = {
-                                    labels: labels,
-                                    datasets: [dataset1,dataset2]
-                                };
-
-                                const config = {
-                                    type: 'line',
-                                    data: data,
-                                };
-
-                                new Chart(graph, config);
-                            </script>
+{#                            <canvas id="grafica"></canvas>#}
+{#                            <script>#}
+{#                                const labels = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']#}
+{##}
+{#                                const dataset1 = {#}
+{#                                    label: "Ingresos",#}
+{#                                    data: [0,375,750,1500],#}
+{#                                    borderColor: 'rgba(255, 215, 0, 0.8)',#}
+{#                                    fill: false,#}
+{#                                    tension: 0.1#}
+{#                                };#}
+{##}
+{#                                const dataset2 = {#}
+{#                                    label: "Gastos",#}
+{#                                    data: [0,45,90,180],#}
+{#                                    borderColor: 'rgba(160, 160, 160, 0.8)',#}
+{#                                    fill: false,#}
+{#                                    tension: 0.1#}
+{#                                };#}
+{##}
+{#                                const graph = document.querySelector("#grafica");#}
+{##}
+{#                                const data = {#}
+{#                                    labels: labels,#}
+{#                                    datasets: [dataset1,dataset2]#}
+{#                                };#}
+{##}
+{#                                const config = {#}
+{#                                    type: 'line',#}
+{#                                    data: data,#}
+{#                                };#}
+{##}
+{#                                new Chart(graph, config);#}
+{#                            </script>#}
                         </div>
                     </div>
                 </div>

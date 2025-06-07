@@ -1,0 +1,92 @@
+import datetime
+from flask import *
+import os
+from dotenv import load_dotenv
+import database as db
+
+load_dotenv()
+
+app = Flask(__name__,template_folder='templates')
+app.secret_key = os.getenv("SECRET_KEY")
+@app.route("/")
+def index():
+    return render_template("Inicio.html")
+
+@app.route("/registro")
+def registro():
+
+    return render_template("Registro.html")
+
+@app.route("/video")
+def llamar_video():
+    return render_template("reconocimiento.html")
+
+@app.route("/video_recibido", methods=["POST", "GET"])
+def video_recibido():
+    if 'imagen' not in request.files:
+        return jsonify({'error': 'No se encontró el archivo'}), 400
+
+    imagen = request.files['imagen']
+    usuario_id = 'Osw123'
+
+    carpeta_usuario = os.path.join('imagenes_usuarios', usuario_id)
+    os.makedirs(carpeta_usuario, exist_ok=True)
+
+    nombre_archivo = usuario_id + datetime.datetime.now().strftime("%Y%m%d%H%M%S") + ".jpeg"
+    ruta_completa = os.path.join(carpeta_usuario, nombre_archivo)
+
+    imagen.save(ruta_completa)
+    return jsonify({'mensaje': f'Imagen guardada en {ruta_completa}'})
+@app.route("/home")
+def sesion():
+    return render_template("principal_Iframe.html")
+
+@app.route("/cerrar_sesion")
+def cerrar_sesion():
+    session.pop('nombre',None)
+    return redirect(url_for('/'))
+
+mierdas = [{"tarjeta": "1111,1111,1111,1111","motivo":"transferencia","monto":"200","fecha":"03/12/08"},{"tarjeta": "1111,1111,1111,1111","motivo":"transferencia","monto":"200","fecha":"03/12/08"} ]
+@app.route("/transacciones_ruta")
+def transacciones_ruta():
+    return render_template("transacciones.html", data = mierdas)
+
+
+@app.route("/transferencia_ruta", methods=["POST", "GET"])
+def transferencia_ruta():
+    if request.method == 'POST':
+        destinatario = request.form['Tarjeta_Destinatario']
+
+        if destinatario:
+            cursor = db.database.cursor()
+            consulta = 'INSERT INTO f (destino) VALUES (%s)'
+            data = (destinatario,)
+            cursor.execute(consulta, data)
+            db.database.commit()
+
+    return render_template('Transferencias.html')
+
+
+
+# @app.route("/matplot")
+# def matplot():
+#     fig, ax = plt.subplots()
+#     ax.scatter(x=[1, 2, 3], y=[3, 2, 1])
+#     return plt.show()
+
+
+@app.route("/estado_cuenta_ruta", methods=["POST", "GET"])
+def estado_cuenta_ruta():
+    return render_template('dashboard.html' )
+
+
+
+
+
+
+
+
+if __name__ == "__main__":
+    # port = int(os.environ.get("PORT", 8000))
+    # app.run(host="0.0.0.0", port=port)
+    app.run(debug=True)

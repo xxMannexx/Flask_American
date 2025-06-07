@@ -19,17 +19,17 @@
               </div>
               <div class="px-lg-4 py-lg-4 p-4 w-100 align-self-center">
                     <h1 class="fw-bold mb-4" style="color: #EFB810FF;font-family: 'Inter', sans-serif;">Bienvenido...</h1>
-                    <form class="mb-5">
+                    <form class="mb-5" method="POST" action="/registro">
                       <div class="form-floating mb-3">
-                        <input style="color: #E0CDA9;caret-color: #F6C445;" type="email" class="form-control bg-transparent border-bottom-0" id="Correo" aria-describedby="Correo" placeholder="example@correo.com" required>
+                        <input style="color: #E0CDA9;caret-color: #F6C445;" type="email" class="form-control bg-transparent border-bottom-0" name="correo" id="Correo" aria-describedby="Correo" placeholder="example@correo.com" required>
                         <label for="Correo" class="form-label" style="color: #b8a780;font-family: 'Inter', sans-serif;">Correo Electronico</label>
                       </div>
                       <div class="form-floating mb-3">
-                        <input style="color: #E0CDA9;caret-color: #F6C445;" type="text" class="form-control bg-transparent border-bottom-0" id="Nombre" placeholder="Nombre" required>
+                        <input style="color: #E0CDA9;caret-color: #F6C445;" type="text" class="form-control bg-transparent border-bottom-0" id="Nombre" name="nombre" placeholder="Nombre" required>
                         <label for="Nombre" class="form-label" style="color: #b8a780;font-family: 'Inter', sans-serif;">Nombre(s)</label>
                       </div>
                       <div class="form-floating mb-3">
-                        <input style="color: #E0CDA9;caret-color: #F6C445;" type="text" class="form-control bg-transparent border-bottom-0" id="Apellidos" aria-describedby="Apellidos" placeholder="Apellidos" required>
+                        <input style="color: #E0CDA9;caret-color: #F6C445;" type="text" class="form-control bg-transparent border-bottom-0" id="Apellidos" aria-describedby="Apellidos" placeholder="Apellidos" name="apellidos" required>
                         <label for="Apellidos" class="form-label" style="color: #b8a780;font-family: 'Inter', sans-serif;">Apellidos</label>
                       </div>
                       <div class="form-floating input-group mb-3">
@@ -38,7 +38,7 @@
                         <label for="Telefono" class="form-label ps-5 mx-3" style="color: #b8a780;font-family: 'Inter', sans-serif;">Numero Telefonico</label>
                       </div>
                       <div class="form-floating mb-3">
-                        <input style="color: #E0CDA9;caret-color: #F6C445;" type="date" class="form-control bg-transparent border-bottom-0" id="Fecha" name="Fecha" required>
+                        <input style="color: #E0CDA9;caret-color: #F6C445;" type="date" class="form-control bg-transparent border-bottom-0" id="Fecha" name="fecha" required>
                         <label for="Fecha" class="form-label" style="color: #b8a780;font-family: 'Inter', sans-serif;">Fecha de Nacimiento</label>
                         <div class="form-text pt-2 pb-3" style="color: #A8925C;font-family: 'Inter', sans-serif;" id="texto">Al presionar el boton sera redirigido a el uso de la camara para obtener sus datos biometricos.</div>
                       </div>
