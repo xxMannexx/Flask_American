@@ -15,18 +15,17 @@
             <table class="table table-dark">
                 <thead class="text-dark">
                     <tr>
-                        <th scope="col">Tarjeta</th>
+                        <th scope="col">Folio</th>
                         <th scope="col">Tipo de Operacion</th>
                         <th scope="col">Monto</th>
                         <th scope="col">fecha</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td>1111 1111 1111 1111 </td><td>Transferencia</td><td>200</td><td>22/03/2014</td></tr>
                     {% for d in data %}
                     <tr>
-                        <td>{{d.tarjeta}}</td>
-                        <td>{{d.motivo}}</td>
+                        <td>{{d.id}}</td>
+                        <td>{{d.tipo}}</td>
                         <td>{{d.monto}}</td>
                         <td>{{d.fecha}}</td>
                     </tr>

@@ -8,19 +8,45 @@
     <title>Video en Flask</title>
 </head>
 
-<body>
-    <h1>Captura de Video</h1>
-    <div class="row video">
-        <div>
+<body class="bg-black">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <ul class="navbar-nav row d-flex justify-content-between">
+                <li class="nav-item col-lg-4 col-2">
+                    <div class="container w-75 m-0 align-items-center">
+                        <a href="#" class="nav-brand ">
+                            <img class="img-fluid" src="../static/Imagenes/landinglogo.png" alt="Home">
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item col-lg-4 col-0">
+                    <h1 style="color: gold;" class="text-center">RECONOCIMIENTO FACIAL</h1>
+                </li>
+                <li class="nav-item col-lg-4 col-2 align-content-center">
+                    <button href="#" class="btn w-75 btn-outline-warning">Regresar</button>
+                </li>
+            </ul>
+
 
         </div>
-        <div class="container">
-            <video id="video" autoplay playsinline class="mx-auto"></video>
-            <br>
-            <button id="capturarBtn" class="btn btn-primary mt-3">Capturar Imagen</button>
+    </nav>
+
+    <div class="container-fluid my-5">
+        <div class="embed-responsive embed-responsive-16by9 d-lg-flex justify-content-center p-0 d-block">
+            <video id="video"autoplay playsinline class="img-fluid"></video>
         </div>
     </div>
-    <p id="respuesta"></p>
+    <div class="container-fluid">
+        <div class="row">
+            <button id="capturarBtn" class="btn btn-outline-warning mx-auto col-lg-4 col-10">Capturar Imagen</button>
+            <div class="bg-black p-1 mx-auto col-lg-4 col-10">
+                <p style="color: gold;" class="text-center align-top text-wrap ">Respuesta del servidor: <span id="respuesta" class="text-center"></span></p>
+            </div>
+
+        </div>
+
+    </div>
+
 
 <script>
     const video = document.getElementById('video');

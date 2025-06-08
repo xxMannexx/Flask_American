@@ -1,0 +1,23 @@
+body{
+    color: #EFB810FF;
+    font-family: 'IBM Plex Sans', sans-serif;
+}
+.color{
+    background-color: black;
+    color: black;
+}
+
+.borde{
+    border-color: yellow;
+    border-top: 0;
+    border-right: 0;
+    border-left: 0;
+}
+.input:focus{
+    background: black;
+    color: gold;
+}
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px black inset !important;
+  -webkit-text-fill-color: #E0CDA9;
+}

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/estilos_inicio_sesion.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <title>Video en Flask</title>
+</head>
+
+<body class="bg-black">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <ul class="navbar-nav row d-flex justify-content-between">
+                <li class="nav-item col-lg-4 col-2">
+                    <div class="container w-75 m-0 align-items-center">
+                            <img class="img-fluid" src="../static/Imagenes/landinglogo.png" alt="Home">
+                    </div>
+                </li>
+                <li class="nav-item col-lg-4 col-0">
+                    <h1 style="color: gold;" class="text-center">RECONOCIMIENTO FACIAL</h1>
+                </li>
+                <li class="nav-item col-lg-4 col-2 align-content-center">
+                    <button href="{{ url_for('registro') }}" class="btn w-75 btn-outline-warning">Registrarse</button>
+                </li>
+            </ul>
+
+
+        </div>
+    </nav>
+
+    <div class="container-fluid my-5">
+        <div class="embed-responsive embed-responsive-16by9 d-lg-flex justify-content-center p-0 d-block">
+            <video id="video" autoplay playsinline class="img-fluid"></video>
+        </div>
+    </div>
+    <form method="POST" action="/video_inicio_sesion">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="form-floating col-lg-4 color">
+                    <input type="text" style="color: gold; background-color: black; border-color: yellow; border-top: 0; border-right: 0; border-left: 0;" class="form-control borde color input" id="user" name="usuario" placeholder="mierda" required>
+                    <label for="user" style="color: gold" class="">Usuario:</label>
+                </div>
+                <button id="capturarBtn" class="btn btn-outline-warning mx-auto col-lg-4 col-10">Capturar Imagen</button>
+                <div class="bg-black p-1 mx-auto col-lg-4 col-10">
+                    <p style="color: gold;" class="text-center align-top text-wrap ">Respuesta del servidor: <span id="respuesta" class="text-center"></span></p>
+                </div>
+
+            </div>
+        </div>
+    </form>
+
+
+
+<script>
+    const video = document.getElementById('video');
+    const botonCaptura = document.getElementById('capturarBtn');
+    const canvas = document.createElement('canvas');
+    const contexto = canvas.getContext('2d');
+    const usuario = document.getElementById('user');
+
+    navigator.mediaDevices.getUserMedia({ video: { width: 640, height: 480 }, audio: false })
+    .then(stream => {
+        video.srcObject = stream;
+    })
+    .catch(error => {
+        console.error('Error al acceder a la camara:', error);
+        document.getElementById('respuesta').innerHTML = 'No se pudo acceder a la camara:';
+    });
+
+    botonCaptura.addEventListener('click', () => {
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        contexto.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        const formData = new FormData();
+
+        canvas.toBlob(function (blob) {
+
+            formData.append('imagen', blob, 'captura.jpg');
+            formData.append(usuario, formData);
+
+            fetch('/video_inicio_sesion', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(respuesta => {
+                    document.getElementById('respuesta').innerText = respuesta.mensaje || respuesta.error;
+                })
+            .catch(error => {
+                console.error('Error al acceder al enviar la imagen:', error);
+                document.getElementById('respuesta').innerText = 'Error en el servidor:';
+            });
+        }, 'image/jpeg',0.6);
+        formData.append('usuario',usuario);
+    });
+</script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+
+</body>
+</html>

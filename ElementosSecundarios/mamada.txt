@@ -1,0 +1,321 @@
+FLASK_APP = app.py
+FLASK_ENV = development
+FLASK_DEBUG = 0
+In folder C:/Users/mane_/PycharmProjects/Flask_American
+C:\Users\mane_\PycharmProjects\Flask_American\.venv\Scripts\python.exe -m flask run
+2025-06-07 17:43:31.346325: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-06-07 17:43:32.262332: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING:tensorflow:From C:\Users\mane_\PycharmProjects\Flask_American\.venv\Lib\site-packages\tf_keras\src\losses.py:2976: The name tf.losses.sparse_softmax_cross_entropy is deprecated. Please use tf.compat.v1.losses.sparse_softmax_cross_entropy instead.
+
+ * Serving Flask app 'app.py'
+ * Debug mode: off
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:5000
+Press CTRL+C to quit
+127.0.0.1 - - [07/Jun/2025 17:43:36] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [07/Jun/2025 17:43:36] "GET /static/Imagenes/americanlogo.png HTTP/1.1" 304 -
+127.0.0.1 - - [07/Jun/2025 17:43:36] "GET /static/Imagenes/landinglogo.png HTTP/1.1" 304 -
+127.0.0.1 - - [07/Jun/2025 17:43:36] "GET /static/css/estilos_Inicio.css HTTP/1.1" 304 -
+127.0.0.1 - - [07/Jun/2025 17:43:36] "GET /static/Imagenes/fondo.png HTTP/1.1" 304 -
+127.0.0.1 - - [07/Jun/2025 17:43:36] "GET /favicon.ico HTTP/1.1" 302 -
+127.0.0.1 - - [07/Jun/2025 17:43:37] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [07/Jun/2025 17:43:45] "GET /video HTTP/1.1" 200 -
+127.0.0.1 - - [07/Jun/2025 17:43:45] "GET /static/pruebaBS5.css HTTP/1.1" 302 -
+127.0.0.1 - - [07/Jun/2025 17:43:45] "GET /static/Imagenes/landinglogo.png HTTP/1.1" 304 -
+127.0.0.1 - - [07/Jun/2025 17:43:45] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [07/Jun/2025 17:43:45] "GET /favicon.ico HTTP/1.1" 302 -
+127.0.0.1 - - [07/Jun/2025 17:43:45] "GET / HTTP/1.1" 200 -
+./imagenes_usuarios/ma9812
+1
+imagenes_usuarios\ma9812\ma981220250607174358.jpeg
+127.0.0.1 - - [07/Jun/2025 17:44:01] "POST /video_recibido HTTP/1.1" 200 -
+[{'face': array([[[0.25098039, 0.27058824, 0.24705882],
+        [0.23137255, 0.25098039, 0.22745098],
+        [0.28235294, 0.30196078, 0.27843137],
+        ...,
+        [0.25490196, 0.27843137, 0.27058824],
+        [0.25882353, 0.28235294, 0.2745098 ],
+        [0.2627451 , 0.28627451, 0.27843137]],
+
+       [[0.25490196, 0.2745098 , 0.25098039],
+        [0.25098039, 0.27058824, 0.24705882],
+        [0.2627451 , 0.28235294, 0.25882353],
+        ...,
+        [0.25490196, 0.27843137, 0.27058824],
+        [0.25490196, 0.27843137, 0.27058824],
+        [0.25882353, 0.28235294, 0.2745098 ]],
+
+       [[0.25098039, 0.27058824, 0.24705882],
+        [0.25882353, 0.27843137, 0.25490196],
+        [0.25882353, 0.27843137, 0.25490196],
+        ...,
+        [0.25882353, 0.28235294, 0.2745098 ],
+        [0.25882353, 0.28235294, 0.2745098 ],
+        [0.25882353, 0.28235294, 0.2745098 ]],
+
+       ...,
+
+       [[0.08627451, 0.28235294, 0.36078431],
+        [0.44705882, 0.70588235, 0.77254902],
+        [0.27058824, 0.58823529, 0.63529412],
+        ...,
+        [0.14117647, 0.27843137, 0.33333333],
+        [0.09803922, 0.21568627, 0.27843137],
+        [0.16862745, 0.27058824, 0.34117647]],
+
+       [[0.10196078, 0.29411765, 0.36862745],
+        [0.42352941, 0.67058824, 0.74117647],
+        [0.26666667, 0.57647059, 0.62745098],
+        ...,
+        [0.15686275, 0.28627451, 0.34509804],
+        [0.09803922, 0.20784314, 0.26666667],
+        [0.14509804, 0.24705882, 0.30980392]],
+
+       [[0.09411765, 0.28627451, 0.36078431],
+        [0.39215686, 0.63529412, 0.70980392],
+        [0.26666667, 0.56862745, 0.62352941],
+        ...,
+        [0.15686275, 0.27843137, 0.33333333],
+        [0.11764706, 0.22352941, 0.27843137],
+        [0.1254902 , 0.21960784, 0.28235294]]]), 'facial_area': {'x': 218, 'y': 242, 'w': 185, 'h': 185, 'left_eye': (340, 310), 'right_eye': (278, 308)}, 'confidence': np.float64(0.95), 'is_real': True, 'antispoof_score': np.float64(0.9302780330181122)}]
+./imagenes_usuarios/ma9812
+2
+imagenes_usuarios\ma9812\ma981220250607174418.jpeg
+[{'face': array([[[0.18039216, 0.18039216, 0.17647059],
+        [0.17254902, 0.17254902, 0.17254902],
+        [0.16470588, 0.16470588, 0.16470588],
+        ...,
+        [0.21960784, 0.22745098, 0.21568627],
+        [0.23137255, 0.23921569, 0.23529412],
+        [0.23921569, 0.24705882, 0.24313725]],
+
+       [[0.18039216, 0.18039216, 0.17647059],
+        [0.16862745, 0.16862745, 0.16862745],
+        [0.16078431, 0.16078431, 0.16078431],
+        ...,
+        [0.23921569, 0.24705882, 0.23529412],
+        [0.24705882, 0.25490196, 0.24705882],
+        [0.25490196, 0.2627451 , 0.25882353]],
+
+       [[0.16470588, 0.16470588, 0.16470588],
+        [0.16470588, 0.16470588, 0.16470588],
+        [0.16470588, 0.16470588, 0.16470588],
+        ...,
+        [0.24705882, 0.26666667, 0.25098039],
+        [0.25098039, 0.26666667, 0.2627451 ],
+        [0.25098039, 0.26666667, 0.2627451 ]],
+
+       ...,
+
+       [[0.19607843, 0.30980392, 0.39215686],
+        [0.19607843, 0.31764706, 0.4       ],
+        [0.18823529, 0.32156863, 0.4       ],
+        ...,
+        [0.11764706, 0.27843137, 0.34117647],
+        [0.11764706, 0.25098039, 0.31372549],
+        [0.14901961, 0.26666667, 0.33333333]],
+
+       [[0.19607843, 0.30980392, 0.39215686],
+        [0.16470588, 0.29019608, 0.36862745],
+        [0.15686275, 0.29019608, 0.37254902],
+        ...,
+        [0.09803922, 0.26666667, 0.32941176],
+        [0.10588235, 0.23529412, 0.30196078],
+        [0.16862745, 0.27843137, 0.34509804]],
+
+       [[0.20392157, 0.31372549, 0.4       ],
+        [0.16862745, 0.28627451, 0.36862745],
+        [0.16470588, 0.29411765, 0.37254902],
+        ...,
+        [0.09803922, 0.2627451 , 0.3254902 ],
+        [0.09803922, 0.23137255, 0.29803922],
+        [0.12156863, 0.23137255, 0.29803922]]]), 'facial_area': {'x': 205, 'y': 236, 'w': 186, 'h': 186, 'left_eye': (328, 309), 'right_eye': (267, 305)}, 'confidence': np.float64(0.93), 'is_real': True, 'antispoof_score': np.float64(0.9819287657737732)}]
+127.0.0.1 - - [07/Jun/2025 17:44:18] "POST /video_recibido HTTP/1.1" 200 -
+./imagenes_usuarios/ma9812
+3
+imagenes_usuarios\ma9812\ma981220250607174455.jpeg
+127.0.0.1 - - [07/Jun/2025 17:44:55] "POST /video_recibido HTTP/1.1" 302 -
+[2025-06-07 17:44:55,426] ERROR in app: Exception on /home [GET]
+Traceback (most recent call last):
+  File "C:\Users\mane_\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mane_\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mane_\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mane_\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mane_\PycharmProjects\Flask_American\app.py", line 107, in sesion
+    return render_template("principal_Iframe.html")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mane_\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mane_\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mane_\AppData\Local\Programs\Python\Python312\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "C:\Users\mane_\AppData\Local\Programs\Python\Python312\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\mane_\PycharmProjects\Flask_American\templates\principal_Iframe.html", line 16, in top-level template code
+    <a href="{{ url_for('estado_cuenta_ruta') }}" target="contenido" class="nav-link">
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mane_\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 1121, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mane_\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 1110, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mane_\AppData\Local\Programs\Python\Python312\Lib\site-packages\werkzeug\routing\map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'estado_cuenta_ruta'. Did you mean 'static' instead?
+127.0.0.1 - - [07/Jun/2025 17:44:55] "GET /home HTTP/1.1" 500 -
+[{'face': array([[[0.24313725, 0.25882353, 0.25490196],
+        [0.24705882, 0.2627451 , 0.25882353],
+        [0.25098039, 0.26666667, 0.2627451 ],
+        ...,
+        [0.24705882, 0.29019608, 0.25882353],
+        [0.16862745, 0.21960784, 0.18431373],
+        [0.27058824, 0.32156863, 0.28627451]],
+
+       [[0.24705882, 0.2627451 , 0.25882353],
+        [0.25098039, 0.26666667, 0.2627451 ],
+        [0.25490196, 0.27058824, 0.26666667],
+        ...,
+        [0.1372549 , 0.18039216, 0.14901961],
+        [0.26666667, 0.31764706, 0.28235294],
+        [0.6627451 , 0.71372549, 0.67843137]],
+
+       [[0.24705882, 0.2627451 , 0.25882353],
+        [0.25098039, 0.26666667, 0.2627451 ],
+        [0.25882353, 0.2745098 , 0.27058824],
+        ...,
+        [0.22352941, 0.26666667, 0.23529412],
+        [0.37254902, 0.41960784, 0.38823529],
+        [0.64705882, 0.69803922, 0.6627451 ]],
+
+       ...,
+
+       [[0.1372549 , 0.27843137, 0.34117647],
+        [0.1254902 , 0.27058824, 0.33333333],
+        [0.11372549, 0.25882353, 0.32156863],
+        ...,
+        [0.10980392, 0.22745098, 0.26666667],
+        [0.09411765, 0.21568627, 0.26666667],
+        [0.08235294, 0.20784314, 0.25882353]],
+
+       [[0.12941176, 0.2627451 , 0.3254902 ],
+        [0.12156863, 0.25882353, 0.32156863],
+        [0.12941176, 0.2627451 , 0.3254902 ],
+        ...,
+        [0.10588235, 0.22352941, 0.2627451 ],
+        [0.09411765, 0.21568627, 0.26666667],
+        [0.07843137, 0.20392157, 0.25490196]],
+
+       [[0.12156863, 0.23921569, 0.31372549],
+        [0.10588235, 0.21960784, 0.30196078],
+        [0.12941176, 0.24705882, 0.3254902 ],
+        ...,
+        [0.09019608, 0.20784314, 0.25098039],
+        [0.08235294, 0.20784314, 0.25490196],
+        [0.07843137, 0.20392157, 0.25490196]]]), 'facial_area': {'x': 217, 'y': 244, 'w': 194, 'h': 194, 'left_eye': (346, 320), 'right_eye': (283, 318)}, 'confidence': np.float64(0.97), 'is_real': True, 'antispoof_score': np.float64(0.9313372075557709)}]
+./imagenes_usuarios/ma9812
+4
+imagenes_usuarios\ma9812\ma981220250607174515.jpeg
+127.0.0.1 - - [07/Jun/2025 17:45:15] "POST /video_recibido HTTP/1.1" 302 -
+[2025-06-07 17:45:15,351] ERROR in app: Exception on /home [GET]
+Traceback (most recent call last):
+  File "C:\Users\mane_\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mane_\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mane_\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mane_\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mane_\PycharmProjects\Flask_American\app.py", line 107, in sesion
+    return render_template("principal_Iframe.html")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mane_\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mane_\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mane_\AppData\Local\Programs\Python\Python312\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "C:\Users\mane_\AppData\Local\Programs\Python\Python312\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\mane_\PycharmProjects\Flask_American\templates\principal_Iframe.html", line 16, in top-level template code
+    <a href="{{ url_for('estado_cuenta_ruta') }}" target="contenido" class="nav-link">
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mane_\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 1121, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mane_\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 1110, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mane_\AppData\Local\Programs\Python\Python312\Lib\site-packages\werkzeug\routing\map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'estado_cuenta_ruta'. Did you mean 'static' instead?
+127.0.0.1 - - [07/Jun/2025 17:45:15] "GET /home HTTP/1.1" 500 -
+[{'face': array([[[0.21568627, 0.21960784, 0.2       ],
+        [0.21568627, 0.21960784, 0.2       ],
+        [0.21960784, 0.22352941, 0.20392157],
+        ...,
+        [0.16078431, 0.15686275, 0.14117647],
+        [0.16078431, 0.16470588, 0.14509804],
+        [0.19215686, 0.19607843, 0.18039216]],
+
+       [[0.21568627, 0.21960784, 0.2       ],
+        [0.21176471, 0.21568627, 0.19607843],
+        [0.21568627, 0.21960784, 0.2       ],
+        ...,
+        [0.17647059, 0.18039216, 0.16078431],
+        [0.18823529, 0.19607843, 0.17647059],
+        [0.17647059, 0.18431373, 0.16470588]],
+
+       [[0.21176471, 0.21568627, 0.19607843],
+        [0.20784314, 0.21176471, 0.19215686],
+        [0.21176471, 0.21568627, 0.19607843],
+        ...,
+        [0.23137255, 0.23921569, 0.21960784],
+        [0.2       , 0.20784314, 0.18823529],
+        [0.17647059, 0.18431373, 0.16470588]],
+
+       ...,
+
+       [[0.19607843, 0.58431373, 0.62745098],
+        [0.16078431, 0.56862745, 0.61176471],
+        [0.17647059, 0.6       , 0.63921569],
+        ...,
+        [0.42352941, 0.74901961, 0.77647059],
+        [0.0745098 , 0.34901961, 0.38431373],
+        [0.        , 0.21568627, 0.25882353]],
+
+       [[0.19607843, 0.58431373, 0.62745098],
+        [0.16862745, 0.58039216, 0.62352941],
+        [0.18431373, 0.60784314, 0.64705882],
+        ...,
+        [0.36470588, 0.68627451, 0.70980392],
+        [0.        , 0.16470588, 0.19607843],
+        [0.00784314, 0.25882353, 0.29803922]],
+
+       [[0.19607843, 0.58431373, 0.62352941],
+        [0.17647059, 0.58823529, 0.63137255],
+        [0.19215686, 0.61568627, 0.65490196],
+        ...,
+        [0.30980392, 0.63529412, 0.6627451 ],
+        [0.        , 0.16862745, 0.20392157],
+        [0.03529412, 0.30980392, 0.35294118]]]), 'facial_area': {'x': 233, 'y': 255, 'w': 175, 'h': 175, 'left_eye': (348, 325), 'right_eye': (285, 324)}, 'confidence': np.float64(0.97), 'is_real': True, 'antispoof_score': np.float64(0.9641172587871552)}]
+
+Process finished with exit code 0

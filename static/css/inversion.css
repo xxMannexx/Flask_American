@@ -1,0 +1,50 @@
+body {
+    background-color: #000;
+}
+
+h1{
+    color: #EFB810FF;
+}
+
+h2 {
+  color: #EFB810FF;
+}
+
+.dashboard-title {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+h3 {
+    color: #EFB810FF;
+}
+
+h5{
+  color: #EFB810FF;
+}
+
+.label {
+  height: 35px;
+  color: #EFB810FF;
+}
+
+.dashboard-card {
+  border: 1px solid #000;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px;
+  background-color: rgb(23, 23, 23);
+}
+.color{
+    background-color: black;
+}
+.borde{
+    border-color: yellow;
+    border-top: 0;
+    border-right: 0;
+    border-left: 0;
+}
+.input:focus{
+    background: black;
+    color: gold;
+}
