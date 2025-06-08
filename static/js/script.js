@@ -17,12 +17,12 @@ var cardnumber_mask = new IMask(cardnumber, {
     mask: [
         {
             mask: '0000 000000 00000',
-            regex: '^3[47]\\d{0,13}',
+            regex: '^3[47]\\d{0,14}',
             cardtype: 'american express'
         },
         {
             mask: '0000 000000 00000',
-            regex: '^3[58]\\d{0,13}',
+            regex: '^3[58]\\d{0,14}',
             cardtype: 'american express1'
         },
         {
@@ -46,8 +46,8 @@ var cardnumber_mask = new IMask(cardnumber, {
 var expirationdate_mask = new IMask(expirationdate, {
     mask: 'MM{/}YY',
     groups: {
-        YY: new IMask.MaskedPattern.Group.Range([25, 99]),
         MM: new IMask.MaskedPattern.Group.Range([1, 12]),
+        YY: new IMask.MaskedPattern.Group.Range([25, 99])
     }
 });
 
@@ -109,16 +109,22 @@ document.querySelector('.creditcard').addEventListener('click', function () {
     }
 })
 
-//On Input Change Events
-name.addEventListener('input', function () {
-    if (name.value.length == 0) {
-        document.getElementById('svgname').innerHTML = 'Tu Nombre';
-        document.getElementById('svgnameback').innerHTML = 'Tu nombre';
-    } else {
-        document.getElementById('svgname').innerHTML = this.value;
-        document.getElementById('svgnameback').innerHTML = this.value;
+
+
+
+function setInitialName() {
+    const svgname = document.getElementById('svgname');
+    const svgnameback = document.getElementById('svgnameback');
+    let initialName = name.value.trim();
+    if (!initialName) {
+        initialName = "Tu Nombre";
     }
-});
+    svgname.textContent = initialName;
+    svgnameback.textContent = initialName;
+}
+
+setInitialName();
+
 
 cardnumber_mask.on('accept', function () {
     if (cardnumber_mask.value.length == 0) {
@@ -144,7 +150,7 @@ securitycode_mask.on('accept', function () {
     }
 });
 
-//On Focus Events
+// On Focus Events
 name.addEventListener('focus', function () {
     document.querySelector('.creditcard').classList.remove('flipped');
 });

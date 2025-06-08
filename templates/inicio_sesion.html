@@ -9,42 +9,47 @@
 </head>
 
 <body class="bg-black">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <ul class="navbar-nav row d-flex justify-content-between">
-                <li class="nav-item col-lg-4 col-2">
-                    <div class="container w-75 m-0 align-items-center">
-                            <img class="img-fluid" src="../static/Imagenes/landinglogo.png" alt="Home">
-                    </div>
-                </li>
-                <li class="nav-item col-lg-4 col-0">
-                    <h1 style="color: gold;" class="text-center">RECONOCIMIENTO FACIAL</h1>
-                </li>
-                <li class="nav-item col-lg-4 col-2 align-content-center">
-                    <button href="{{ url_for('registro') }}" class="btn w-75 btn-outline-warning">Registrarse</button>
-                </li>
-            </ul>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
+    <div class="container-fluid position-relative">
+        <ul class="navbar-nav d-flex flex-row justify-content-between align-items-center w-100">
 
+            <li class="nav-item me-auto">
+                <img src="{{ url_for('static', filename='Imagenes/landinglogo.png') }}" alt="Home" class="img-fluid" style="height: 50px;">
+            </li>
 
-        </div>
+            <li class="nav-item mx-auto text-center">
+                <span class="navbar-brand mb-0 h1" style="color: gold; font-size: 1.8rem; font-weight: bold;">RECONOCIMIENTO FACIAL</span>
+            </li>
+
+            <li class="nav-item ms-auto">
+                <a href="{{ url_for('registro') }}" class="btn btn-outline-warning boton-registro">Registrarse</a>
+            </li>
+        </ul>
+    </div>
     </nav>
+
 
     <div class="container-fluid my-5">
         <div class="embed-responsive embed-responsive-16by9 d-lg-flex justify-content-center p-0 d-block">
             <video id="video" autoplay playsinline class="img-fluid"></video>
         </div>
     </div>
-    <form method="POST" action="/video_inicio_sesion">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="form-floating col-lg-4 color">
+    <form method="POST" action="/video_inicio_sesion" enctype="multipart/form-data">
+        <div class="container-fluid mb-3">
+            <div class="form-floating col-lg-4 color w-100">
                     <input type="text" style="color: gold; background-color: black; border-color: yellow; border-top: 0; border-right: 0; border-left: 0;" class="form-control borde color input" id="user" name="usuario" placeholder="mierda" required>
                     <label for="user" style="color: gold" class="">Usuario:</label>
                 </div>
-                <button id="capturarBtn" class="btn btn-outline-warning mx-auto col-lg-4 col-10">Capturar Imagen</button>
-                <div class="bg-black p-1 mx-auto col-lg-4 col-10">
+        </div>
+        <div class="container-fluid ">
+            <div class="row">
+                <button id="capturarBtn" type="button" class="btn btn-outline-warning mx-auto col-lg-4 col-10">Capturar Imagen</button>
+                <div  class="bg-black p-1 mx-auto col-lg-4 col-10">
                     <p style="color: gold;" class="text-center align-top text-wrap ">Respuesta del servidor: <span id="respuesta" class="text-center"></span></p>
                 </div>
+                <button id="continuar" class="btn btn-outline-warning mx-auto col-lg-4 col-10 justify-content-center" disabled>
+                    <a href="{{ url_for('sesion') }}" >Continuar</a>
+                </button>
 
             </div>
         </div>
@@ -57,7 +62,6 @@
     const botonCaptura = document.getElementById('capturarBtn');
     const canvas = document.createElement('canvas');
     const contexto = canvas.getContext('2d');
-    const usuario = document.getElementById('user');
 
     navigator.mediaDevices.getUserMedia({ video: { width: 640, height: 480 }, audio: false })
     .then(stream => {
@@ -73,12 +77,13 @@
         canvas.height = video.videoHeight;
         contexto.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-        const formData = new FormData();
-
         canvas.toBlob(function (blob) {
-
+            const formData = new FormData();
             formData.append('imagen', blob, 'captura.jpg');
-            formData.append(usuario, formData);
+
+            const usuario = document.getElementById('user').value.trim().toLowerCase();
+            formData.append('usuario', usuario);
+
 
             fetch('/video_inicio_sesion', {
                 method: 'POST',
@@ -87,13 +92,17 @@
                 .then(response => response.json())
                 .then(respuesta => {
                     document.getElementById('respuesta').innerText = respuesta.mensaje || respuesta.error;
+                    if (respuesta.mensaje ==='Sesion correcta' ){
+                        document.getElementById('continuar').disabled = false;
+                    } else{
+                        document.getElementById('continuar').disabled = true;
+                    }
                 })
             .catch(error => {
                 console.error('Error al acceder al enviar la imagen:', error);
-                document.getElementById('respuesta').innerText = 'Error en el servidor:';
+                document.getElementById('respuesta').innerText = String.format('Error en el servidor: %s',error);
             });
         }, 'image/jpeg',0.6);
-        formData.append('usuario',usuario);
     });
 </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>

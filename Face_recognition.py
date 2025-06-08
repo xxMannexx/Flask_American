@@ -35,6 +35,7 @@ def reconocer(imagen_usuario,ruta):
     print(coincidencias)
 
     if coincidencias >= 2:
+        print('Bienvenido')
         return True
     else:
         return False

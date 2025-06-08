@@ -17,7 +17,7 @@
                 <div class="col-12 pb-4 col-md-4 col-lg-4 text-center h-100" >
                     <div class="card shadow h-100">
                         <div class="card-body align-content-center" id="carta_saldo">
-                            <h1 class="card-title">{{data}}</h1>
+                            <h1 class="card-title">{{data.saldo}}</h1>
                             <h3 class="card-text">Saldo</h3>
                         </div>
                     </div>
@@ -25,15 +25,15 @@
                 <div class="col-12 pb-4 col-md-4 col-lg-4 text-center h-100">
                     <div class="card shadow h-100" >
                         <div class="card-body align-content-center" id="carta_ingresos">
-                            <h1 class="card-title">$ 1 500</h1>
+                            <h1 class="card-title">{{data.ingresos}}</h1>
                             <h3 class="card-text">Ingresos</h3>
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-md-4 col-lg-4 text-center h-100  ">
                     <div class="card shadow h-100">
-                        <div class="card-body align-content-center " id="carta_gastos">
-                            <h1 class="card-title">$ 180</h1>
+                        <div class="card-body align-content-center align-ite" id="carta_gastos">
+                            <h1 class="card-title">{{data.gastos}}</h1>
                             <h3 class="card-text">Gastos</h3>
                         </div>
                     </div>
@@ -45,44 +45,14 @@
             <div class="row h-100" >
                 <div class="col-12 col-md-12 col-lg-12 h-100">
                     <div class="card shadow h-100">
-                        <div class="card-body" id="carta_grafico">
-                            <h3 class="card-title">Grafico</h3>
-{#                                <img src="{{ url_for('matplot') }}" alt="fallo">#}
+                        <div class="card-body justify-content-center align-content-center" id="carta_grafico">
+                            <h3 class="card-title text-center">Grafico</h3>
+                            <div class="container-fluid">
+                                <div class="row justify-content-center">
+                                    <img src="{{data.ruta}}/plot.png" class="img-fluid col-10" alt="{{ data.ruta}}">
+                                </div>
 
-{#                            <canvas id="grafica"></canvas>#}
-{#                            <script>#}
-{#                                const labels = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']#}
-{##}
-{#                                const dataset1 = {#}
-{#                                    label: "Ingresos",#}
-{#                                    data: [0,375,750,1500],#}
-{#                                    borderColor: 'rgba(255, 215, 0, 0.8)',#}
-{#                                    fill: false,#}
-{#                                    tension: 0.1#}
-{#                                };#}
-{##}
-{#                                const dataset2 = {#}
-{#                                    label: "Gastos",#}
-{#                                    data: [0,45,90,180],#}
-{#                                    borderColor: 'rgba(160, 160, 160, 0.8)',#}
-{#                                    fill: false,#}
-{#                                    tension: 0.1#}
-{#                                };#}
-{##}
-{#                                const graph = document.querySelector("#grafica");#}
-{##}
-{#                                const data = {#}
-{#                                    labels: labels,#}
-{#                                    datasets: [dataset1,dataset2]#}
-{#                                };#}
-{##}
-{#                                const config = {#}
-{#                                    type: 'line',#}
-{#                                    data: data,#}
-{#                                };#}
-{##}
-{#                                new Chart(graph, config);#}
-{#                            </script>#}
+                            </div>
                         </div>
                     </div>
                 </div>

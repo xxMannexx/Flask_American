@@ -1,4 +1,8 @@
 import datetime
+import io
+import random
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+from matplotlib.figure import Figure
 from flask import *
 import os
 from dotenv import load_dotenv
@@ -18,14 +22,14 @@ def index():
 
 @app.route("/home")
 def sesion():
-    session["id_usuario"] = "4pnNeg"
+    session['id_usuario'] = "3w3sch"
     cursor = db.database.cursor()
     cursor.execute(f"SELECT numero_tarjeta FROM Tarjeta where usuario_tarjeta = '{session['id_usuario']}'")
     consulta = cursor.fetchone()
+    cursor.close()
     session["numero_tarjeta"] = consulta[0]
     print(consulta, session["numero_tarjeta"])
-
-    return render_template("principal_Iframe.html")
+    return render_template("principal_Iframe.html", nombre_usuario = session["id_usuario"])
 @app.route("/registro", methods=["POST", "GET"])
 def registro():
     cursor = db.database.cursor()
@@ -108,9 +112,8 @@ def video_recibido():
         os.remove(ruta_completa)
         return jsonify({'mensaje': 'Estas suplantando una identidad'})
     else:
-        if len(referencias) > 2:
-
-            return redirect(url_for('sesion'))
+        if len(referencias) == 2:
+            return jsonify({'mensaje': 'Las imagenes estan completas puedes continuar'})
         else:
             return jsonify({'mensaje': 'Falta una'})
 
@@ -126,7 +129,8 @@ def video_inicio_sesion():
         id_usuario = (request.form['usuario']).lower()
         session['id_usuario'] = id_usuario
     if 'imagen' not in request.files:
-        return jsonify({'error': 'No se encontró el archivo'}), 400
+        return jsonify({'error': 'No se encontró el archivo'})
+
     imagen = request.files['imagen']
     id_usuario = session['id_usuario']
     carpeta_usuario = os.path.join('imagenes_usuarios', id_usuario)
@@ -141,20 +145,55 @@ def video_inicio_sesion():
     carpeta_referencias = './imagenes_usuarios/' + id_usuario
     print(carpeta_referencias)
 
-    comprobacion = detectar_cara(ruta_completa)
-    print(comprobacion)
-    if (comprobacion[0])["is_real"] is False:
-        os.remove(ruta_completa)
-        return jsonify({'mensaje': 'Estas suplantando una identidad'})
-    else:
-        flag = reconocer(ruta_completa, carpeta_referencias)
-        print(flag)
-        if flag is True:
+    try:
+        comprobacion = detectar_cara(ruta_completa)
+        print(comprobacion)
+        if (comprobacion[0])["is_real"] is False:
             os.remove(ruta_completa)
-            return render_template("Inicio.html")
+            return jsonify({'mensaje': 'Estas suplantando una identidad'})
         else:
-            return jsonify({'mensaje': 'No se encontraron coincidencias, intente de nuevo'})
-    return "esperar"
+            flag = reconocer(ruta_completa, carpeta_referencias)
+            print(flag)
+            if flag is True:
+                os.remove(ruta_completa)
+                return jsonify({'mensaje' : 'Sesion correcta'})
+            else:
+                os.remove(ruta_completa)
+                return jsonify({'mensaje': 'No se encontraron coincidencias, intente de nuevo'})
+    except ValueError:
+        os.remove(ruta_completa)
+        return jsonify({'mensaje': 'No se detecto un rostro, intente de nuevo'})
+
+
+@app.route('/Tarjeta')
+def tarjeta():
+    cursor = db.database.cursor()
+    cursor.execute(f"select nombre from Usuarios where id_usuario = '{session['id_usuario']}'")
+    nombre_consulta = cursor.fetchone()
+    nombre = nombre_consulta[0]
+    cursor.close()
+    return render_template("Tarjeta.html", nombre = nombre)
+
+@app.route("/tarjeta_recibir", methods=['POST', 'GET'])
+def tarjeta_recibir():
+    if request.method == 'POST':
+        numero_tarjeta = request.form['numero_tarjeta']
+        usuario_tarjeta = request.form['usuario_tarjeta']
+        cvv = request.form['cvv']
+        fecha_vencimiento = request.form['fecha_vencimiento']
+
+        cursor = db.database.cursor()
+        consulta_recibir = "insert into Tarjeta (numero_tarjeta, usuario_tarjeta,nip,cvv, fecha_vencimiento) values (%s, %s, %s, %s, %s)"
+
+        nip = random.randint(100,999)
+
+        datos = (numero_tarjeta, usuario_tarjeta,nip,cvv, fecha_vencimiento)
+        cursor.execute(consulta_recibir, datos)
+        db.database.commit()
+        cursor.close()
+
+    return redirect(url_for(''))
+
 
 @app.errorhandler(404)
 def not_found(e):
@@ -167,8 +206,53 @@ def estado_cuenta_ruta():
     cursor.execute(f"select saldo from Tarjeta where usuario_tarjeta = '{session['id_usuario']}'")
     consulta = cursor.fetchone()
     numero = consulta[0]
-    return render_template('dashboard.html', data= f"${numero}")
+    cursor.close()
 
+    cursor = db.database.cursor()
+    cursor.execute(f"select ingresos from estado_cuenta where usuario_cuenta = '{session['numero_tarjeta']}'")
+    ingresos_consulta = cursor.fetchone()
+    print(ingresos_consulta)
+    ingresos = ingresos_consulta[0]
+    cursor.close()
+
+    cursor = db.database.cursor()
+    cursor.execute(f"select gastos from estado_cuenta where usuario_cuenta = '{session['numero_tarjeta']}'")
+    gastos_consulta = cursor.fetchone()
+    print(gastos_consulta)
+    gastos = gastos_consulta[0]
+    cursor.close()
+
+
+    datos = {
+        "saldo": f"${numero}",
+        "ingresos": f"${ingresos}",
+        "gastos": f"${gastos}",
+        "ruta" : session['id_usuario']
+    }
+    print(datos["ruta"])
+    return render_template('dashboard.html', data=datos)
+
+@app.route('/<usuario>/plot.png', methods=["GET"])
+def plot_png(usuario):
+    fig = create_figure()
+    usuario = session['id_usuario']
+    output = io.BytesIO()
+    FigureCanvas(fig).print_png(output)
+    return Response(output.getvalue(), mimetype='image/png')
+
+def create_figure():
+    fig = Figure()
+    ax = fig.add_subplot(1, 1, 1)
+    categorias = ['Ingresos', 'Gastos']
+    valores = [1200,3000]
+
+    ax.bar(categorias,valores,color = 'blue')
+
+    ax.set_title('Comparacion Ingresos/Gastos')
+    ax.set_xlabel('Tipo de movimiento')
+    ax.set_ylabel('Valores')
+
+    return fig
 @app.route("/transacciones_ruta")
 def transacciones_ruta():
     def consultas(columna):
@@ -189,31 +273,131 @@ def transacciones_ruta():
 
 @app.route("/transferencia_ruta" , methods=["GET","POST"])
 def transferencia_ruta():
-    return render_template("Transferencias.html")
+    error = "nada"
+    return render_template("Transferencias.html", data=error)
 @app.route("/transferencia_ruta_pago", methods=["GET","POST"])
 def transferencia_ruta_pago():
     if request.method == 'POST':
         tarjeta = (request.form['Tarjeta_Destinatario'])
         monto = request.form['Monto']
         concepto = (request.form['concepto']).title()
-        cursor = db.database.cursor()
-        consulta = "insert into transferencias (emisor_tarjeta, receptor_tarjeta, monto, concepto) values(%s,%s,%s,%s)"
-        datos = [(session["numero_tarjeta"]), tarjeta, int(monto), concepto]
-        print(datos)
-        cursor.execute(consulta,datos)
-        db.database.commit()
-    return redirect(url_for('transacciones_ruta'))
-@app.route("/Pant_pagos")
-def pant_pagos():
-    return render_template("Pant_pagos.html")
 
+
+        cursor = db.database.cursor()
+        cursor.execute(f"select saldo from Tarjeta where numero_tarjeta = '{session["numero_tarjeta"]}'")
+        saldo = cursor.fetchone()[0]
+        cursor.close()
+
+
+        if tarjeta == session['numero_tarjeta']:
+            error = "no puedes transferirte, autista"
+            return render_template("Transferencias.html", data= error)
+        elif int(monto) > int(saldo):
+            error = "No puedes transferir mas dinero de del que tienes"
+            return render_template("Transferencias.html", data= error)
+        else:
+            cursor = db.database.cursor()
+            consulta = "insert into transferencias (emisor_tarjeta, receptor_tarjeta, monto, concepto) values(%s,%s,%s,%s)"
+            datos = [(session["numero_tarjeta"]), tarjeta, int(monto), concepto]
+            print(datos)
+            cursor.execute(consulta,datos)
+            db.database.commit()
+            return redirect(url_for('transacciones_ruta'))
+    return redirect(url_for('transacciones_ruta'))
+@app.route("/Pant_pagos", methods=["GET","POST"])
+def pant_pagos():
+    error = "nada"
+    return render_template("Pant_pagos.html", data=error)
+
+@app.route("/Pant_pagos_pago", methods=["GET","POST"])
+def pant_pagos_pago():
+    if request.method == 'POST':
+        servicio = (request.form['servicio'])
+        numero = (request.form['numero'])
+        monto = request.form['monto']
+
+        cursor = db.database.cursor()
+        cursor.execute(f"select saldo from Tarjeta where numero_tarjeta = '{session["numero_tarjeta"]}'")
+        saldo = cursor.fetchone()[0]
+        cursor.close()
+        if int(monto) > int(saldo):
+            error = "No puedes pagar mas dinero de del que tienes"
+            return render_template("Pant_pagos.html", data=error)
+        else:
+            cursor = db.database.cursor()
+            consulta = "insert into pago_servicio (tarjeta_servicio, nombre_servicio, monto_servicio, no_servicio) values(%s,%s,%s,%s)"
+            datos = [(session["numero_tarjeta"]), servicio, int(monto), numero]
+            print(datos)
+            cursor.execute(consulta,datos)
+            db.database.commit()
+    return redirect(url_for('transacciones_ruta'))
 @app.route("/inversiones")
 def inversiones():
-    return render_template("Inversiones.html")
+    lista = {"hay":True, "monto_inversion": 0, "tasa_gat":0, "ganancia_mes": 0, "error":"nada"}
+    cursor = db.database.cursor()
+    cursor.execute(f"select * from inversion where tarjeta_inversion = '{session['numero_tarjeta']}'")
+    consulta = cursor.fetchone()
+
+    if consulta:
+        print(consulta)
+        lista["monto_inversion"] = consulta[1]
+        lista["tasa_gat"] = consulta[2]
+        lista["ganancia_mes"] = consulta[3]
+    else:
+        lista["hay"] = False
+    cursor.close()
+    return render_template("Inversion.html", data=lista)
+
+@app.route("/inversion_crear", methods=["GET","POST"])
+def inversion_crear():
+    if request.method == 'POST':
+        dinero = (request.form['dinero'])
+        cursor = db.database.cursor()
+        cursor.execute(f"select saldo from Tarjeta where numero_tarjeta = '{session["numero_tarjeta"]}'")
+        saldo = cursor.fetchone()[0]
+        cursor.close()
+        if int(dinero) > int(saldo):
+            error = "No puedes invertir mas dinero de del que tienes"
+            return render_template("Transferencias.html", data=error)
+        else:
+            cursor = db.database.cursor()
+            data = [session["numero_tarjeta"], int(dinero),0.15,(int(dinero)*0.15)]
+            print(data)
+            cursor.execute(f"insert into inversion(tarjeta_inversion,monto_inversion,tasa_gat,ganancia_mes) values(%s,%s,%s,%s)", data)
+            db.database.commit()
+            cursor.close()
+    return redirect(url_for('transacciones_ruta'))
 
 @app.route("/Prestamos")
 def prestamos():
-    return render_template()
+    lista = {"hay": True, "monto_prestamo": 0, "tasa_prestamo": "activo", "plazo_prestamo": 0}
+    cursor = db.database.cursor()
+    cursor.execute(f"select * from prestamo where tarjeta_prestamo = '{session['numero_tarjeta']}'")
+    consulta = cursor.fetchone()
+    if consulta:
+        print(consulta)
+        lista["monto_prestamo"] = consulta[1]
+        lista["tasa_prestamo"] = "activo"
+        lista["plazo_prestamo"] = consulta[3]
+    else:
+        lista["hay"] = False
+    cursor.close()
+    return render_template("prestamo.html", data = lista)
+
+@app.route("/prestamo_crear", methods=["GET","POST"])
+def prestamo_crear():
+    if request.method == 'POST':
+        dinero = (request.form['dinero'])
+        plazos = (request.form['selec'])
+        cursor = db.database.cursor()
+        data = [session["numero_tarjeta"], int(dinero), 0.25, int(plazos)]
+        print(data)
+        cursor.execute(
+            f"insert into prestamo(tarjeta_prestamo,monto_prestamo,tasa_prestamo,plazo_prestamo) values(%s,%s,%s,%s)", data)
+        db.database.commit()
+        cursor.close()
+        return redirect(url_for('transacciones_ruta'))
+    return redirect(url_for('transacciones_ruta'))
 
 @app.route("/cerrar_sesion")
 def cerrar_sesion():

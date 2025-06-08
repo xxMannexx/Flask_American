@@ -2,6 +2,10 @@ body {
     height: 100vh;
 }
 
+p {
+  color:#c8a951;
+}
+
 .sidebar {
     position: fixed;
     top: 0;

@@ -29,3 +29,6 @@ body{
     border-color: yellow;
     border-top: 0;
 }
+.form-floating > label::after {
+    background-color: transparent !important;
+}

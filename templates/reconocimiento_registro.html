@@ -42,6 +42,9 @@
             <div class="bg-black p-1 mx-auto col-lg-4 col-10">
                 <p style="color: gold;" class="text-center align-top text-wrap ">Respuesta del servidor: <span id="respuesta" class="text-center"></span></p>
             </div>
+            <button id="continuar" class="btn btn-outline-warning mx-auto col-lg-4 col-10 justify-content-center" disabled>
+                <a href="{{ url_for('tarjeta') }}" >Continuar</a>
+            </button>
 
         </div>
 
@@ -53,6 +56,7 @@
     const botonCaptura = document.getElementById('capturarBtn');
     const canvas = document.createElement('canvas');
     const contexto = canvas.getContext('2d');
+    document.getElementById("continuar").disabled = true;
 
     navigator.mediaDevices.getUserMedia({ video: { width: 640, height: 480 }, audio: false })
     .then(stream => {
@@ -76,9 +80,15 @@
                 method: 'POST',
                 body: formData
             })
-                .then(response => response.json())
+                .then(response =>  response.json())
                 .then(respuesta => {
                     document.getElementById('respuesta').innerText = respuesta.mensaje || respuesta.error;
+                    if (respuesta.mensaje ==='Las imagenes estan completas puedes continuar' ){
+                        document.getElementById('continuar').disabled = false;
+                    } else{
+                        document.getElementById('continuar').disabled = true;
+                    }
+
                 })
             .catch(error => {
                 console.error('Error al acceder al enviar la imagen:', error);

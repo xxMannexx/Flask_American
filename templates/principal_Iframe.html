@@ -12,6 +12,10 @@
 <body>
     <!---Sidebar--->
     <div class="sidebar">
+      <div class="user-info text-center border-bottom text-wrap p-0">
+        <p class="fs-6 text-break">{{ nombre_usuario }}</p>
+    </div>
+
         <nav class="nav flex-column">
             <a href="{{ url_for('estado_cuenta_ruta') }}" target="contenido" class="nav-link">
                 <span class="icon">
@@ -34,21 +38,21 @@
                 <span class="description">Transferencias</span>
             </a>
 
-            <a href="../templates/Pant_pagos.html" target="contenido" class="nav-link pb-3">
+            <a href="{{ url_for('pant_pagos') }}" target="contenido" class="nav-link pb-3">
                 <span class="icon">
                     <i class="bi bi-collection-play"></i>
                 </span>
                 <span class="description">Pago de Servicios</span>
             </a>
 
-            <a href="../templates/Inversiones.html" class="nav-link pb-3" target="contenido">
+            <a href="{{ url_for('inversiones') }}" class="nav-link pb-3" target="contenido">
                 <span class="icon">
                     <i class="bi bi-file-earmark-bar-graph"></i>
                 </span>
                 <span class="description">Inversion</span>
             </a>
 
-            <a href="Prestamos.html" target="contenido" class="nav-link pb-3">
+            <a href="{{ url_for('prestamos') }}" target="contenido" class="nav-link pb-3">
                 <span class="icon">
                     <i class="bi bi-wallet2"></i>
                 </span>
@@ -66,7 +70,7 @@
 
     <!---IFrame--->
     <main class="main-content embed-responsive embed-responsive-16y9">
-        <iframe id="iframe_principal" name="contenido"  class="embed-responsive-item"></iframe>
+        <iframe id="iframe_principal"  name="contenido" href="{{ url_for('estado_cuenta_ruta') }}"  class="embed-responsive-item bg-black"></iframe>
     </main>
 
 

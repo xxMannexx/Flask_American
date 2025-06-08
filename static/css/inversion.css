@@ -28,6 +28,7 @@ h5{
   color: #EFB810FF;
 }
 
+
 .dashboard-card {
   border: 1px solid #000;
   border-radius: 0.5rem;
@@ -47,4 +48,12 @@ h5{
 .input:focus{
     background: black;
     color: gold;
+}
+
+.input:disabled{
+    background-color: black;
+}
+
+.form-floating > label::after {
+    background-color: transparent !important;
 }

@@ -1,10 +1,39 @@
+:root{
+    --bg-color: #0c0c0c;
+    --text-color: #fff;
+    --main-color: #efb810;
+
+    --big-font: 4.5rem;
+    --pfont: 1.6rem;
+}
+
 body{
     color: #EFB810FF;
     font-family: 'IBM Plex Sans', sans-serif;
+
 }
 .color{
     background-color: black;
     color: black;
+}
+
+.Boton_Inicio{
+    width: 112px;
+    display: inline-block;
+    padding: 9px;
+    background: transparent;
+    border: 2px solid var(--text-color);
+    border-radius: 7px;
+    color: var(--text-color);
+    font-size: 15px;
+    font-weight: 500;
+    transition: all .6s ease;
+}
+
+.Boton_Inicio:hover{
+    transform: translateY(-5px);
+    border: 2px solid var(--main-color);
+    color: var(--main-color);
 }
 
 .borde{

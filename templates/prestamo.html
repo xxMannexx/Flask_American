@@ -14,26 +14,28 @@
             Prestamo
         </h2>
     </div>
+    <form method="POST" action="/prestamo_crear">
     <div class="container-fluid justify-content-center">
-        <form method="POST" action="/#">
             <div class="d-lg-flex flex-row justify-content-lg-around d-sm-block">
                 <div class="container col-lg-4 mx-auto my-3 p-0">
                     <div class="container-fluid input-group m-0">
                         <span class="input-group-text color borde">$</span>
                         <div class="form-floating">
-                            <input type="text" class="form-control color input borde2" required placeholder="mierda" id="dinero">
-                            <label for="dinero" style="color: gold;">Cantidad a pagar</label>
+                            <input type="text" class="form-control desabilitar color input borde2" required disabled placeholder="mierda" name="dinero" id="dinero">
+                            <label for="dinero" id="dinero_label" style="color: gold;">Cantidad a pagar</label>
                         </div>
                         <span class="input-group-text color borde">MXN</span>
                     </div>
                 </div>
                 <div class="form-floating container-fluid col-lg-4 mx-auto my-3">
-                    <select class="form-select color borde" id="selec">
-                        <option value="3 Meses">3 Meses</option>
-                        <option value="6 Meses">6 Meses</option>
-                        <option value="12 Meses">9 Meses</option>
+                    <select class="form-select color borde desabilitar" disabled name="selec" id="selec">
+                        <option value="3">3 meses</option>
+                        <option value="6">6 meses</option>
+                        <option value="9">9 meses</option>
+                        <option value="12">12 meses</option>
+                        <option value="24">24 meses</option>
                     </select>
-                    <label for="selec" style="color: gold" class="form-label">Plazos:</label>
+                    <label for="selec" id="calcular_label" style="color: gold" class="form-label">Plazos (meses):</label>
                 </div>
                 <div class="container si col-lg-4 my-3 ">
                     <h3 class="text-center color text-white p-2 borde">
@@ -41,31 +43,51 @@
                     </h3>
                 </div>
             </div>
-        </form>
+
     </div>
     <div class="container-fluid row align-items-center justify-content-center mx-auto mt-2">
         <button type="submit" class="btn btn-outline-warning mx-auto col-11 col-lg-6" id="calcular">Pagar</button>
     </div>
-
+    </form>
     <div class="container color text-center mx-auto mt-5">
             <h2 style="color: gold;">
-                Activo:
+                Metricas:
             </h2>
-        </div>
+    </div>
     <div class="container-fluid justify-content-center">
         <table class="table table-dark">
                 <thead style="color: gold;">
                     <tr>
-                        <th scope="col">Mensualidad ($)</th>
+                        <th scope="col">Cantidad Prestada</th>
                         <th scope="col">Plazos</th>
                         <th scope="col">Estado:</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td>1er Mes</td><td>$200</td><td>Mes Pagado</td></tr>
+                    <tr>
+                        <td>{{ data.monto_prestamo}}</td>
+                        <td>{{ data.plazo_prestamo }}</td>
+                        <td>{{ data.tasa_prestamo }}</td>
+                    </tr>
                 </tbody>
             </table>
     </div>
+<script>
+    if ('{{ data.hay }}' === 'True' ){
+        document.getElementById('dinero').disabled = true;
+        document.getElementById('selec').disabled = true;
+        document.getElementById('dinero_label').disabled = true;
+        document.getElementById('selec').disabled = true;
+        document.getElementById('calcular').disabled = true;
+    } else{
+        document.getElementById('dinero').disabled = false;
+        document.getElementById('selec').disabled = false;
+        document.getElementById('dinero_label').disabled = false;
+        document.getElementById('selec').disabled = false;
+        document.getElementById('calcular').disabled = false;
+    }
+
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
 </body>
 </html>

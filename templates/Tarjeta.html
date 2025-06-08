@@ -2,9 +2,9 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Validar Tarjeta</title>
   <link href="https://fonts.googleapis.com/css?family=Raleway|Rock+Salt|Source+Code+Pro:300,400,600" rel="stylesheet"><link rel="stylesheet" href="../static/css/estilos_tarjeta.css">
-
 </head>
 <body>
 <!-- partial:index.partial.html -->
@@ -28,7 +28,7 @@
                             <path class="darkcolor greydark" d="M750,431V193.2c-217.6-57.5-556.4-13.5-750,24.9V431c0,22.1,17.9,40,40,40h670C732.1,471,750,453.1,750,431z" />
                         </g>
                         <text transform="matrix(1 0 0 1 60.106 295.0121)" id="svgnumber" class="st2 st3 st4">0123 4567 8910 1112</text>
-                        <text transform="matrix(1 0 0 1 54.1064 428.1723)" id="svgname" class="st2 st5 st6">Tu Nombre</text>
+                        <text transform="matrix(1 0 0 1 54.1064 428.1723)" id="svgname" style="font-size: 20px" class="st2 st5 st6">Tu Nombre</text>
                         <text transform="matrix(1 0 0 1 54.1074 389.8793)" class="st7 st5 st8">Nombre de el Titular</text>
                         <text transform="matrix(1 0 0 1 479.7754 388.8793)" class="st7 st5 st8">Expira</text>
                         <text transform="matrix(1 0 0 1 65.1054 241.5)" class="st7 st5 st8">Numero de Tarjeta</text>
@@ -103,33 +103,40 @@
                         </g>
                         <rect x="58.1" y="378.6" class="st11" width="375.5" height="13.5" />
                         <rect x="58.1" y="405.6" class="st11" width="421.7" height="13.5" />
-                        <text transform="matrix(1 0 0 1 59.5073 228.6099)" id="svgnameback" class="st12 st13">Tu nombre</text>
+                        <text transform="matrix(1 0 0 1 59.5073 228.6099)" id="svgnameback" style="font-size: 20px" class="st12 st13">Tu nombre</text>
                     </g>
                 </svg>
             </div>
         </div>
     </div>
     <div class="form-container">
-        <div class="field-container">
-            <label for="name">Nombre</label>
-            <input id="name" maxlength="20" type="text">
-        </div>
-        <div class="field-container">
-            <label for="cardnumber">Numero de Terjeta</label>
-            <input id="cardnumber" type="text" pattern="[0-9]*" inputmode="numeric">
-            <svg id="ccicon" class="ccicon" width="750" height="471" viewBox="0 0 750 471" version="1.1" xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink">
+        <form class="formulario" method="POST" action="/tarjeta_recibir">
+            <div class="field-container">
+                <label for="name">Nombre</label>
+                <input id="name" disabled type="text" value="Erika Elvira Hernandez Carranza">
+            </div>
+            <div class="field-container">
+                <label for="cardnumber">Numero de Tarjeta</label>
+                <input id="cardnumber" type="tel" name="no_tarjeta" inputmode="numeric" required>
+                <svg id="ccicon" class="ccicon" width="750" height="471" viewBox="0 0 750 471" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink">
 
-            </svg>
-        </div>
-        <div class="field-container">
-            <label for="expirationdate">Expira (mm/yy)</label>
-            <input id="expirationdate" type="text" pattern="[0-9]*" inputmode="numeric">
-        </div>
-        <div class="field-container">
-            <label for="securitycode">Codigo de Seguridad</label>
-            <input id="securitycode" type="text" pattern="[0-9]*" inputmode="numeric">
-        </div>
+                </svg>
+            </div>
+            <div class="field-container">
+                <label for="expirationdate">Expira (mm/yy)</label>
+                <input id="expirationdate" name="expira" type="tel"  inputmode="numeric" required>
+            </div>
+            <div class="field-container">
+                <label for="securitycode">Codigo de Seguridad</label>
+                <input id="securitycode" type="tel" name="cvv" inputmode="numeric" required>
+            </div>
+            <div class="boton">
+                <button class="boton_enviar" type="submit">Enviar</button>
+            </div>
+        </form>
+
+
     </div>
 <!-- partial -->
   <script src='https://cdnjs.cloudflare.com/ajax/libs/imask/3.4.0/imask.min.js'></script><script  src="../static/js/script.js"></script>

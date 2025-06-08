@@ -49,6 +49,7 @@ body {
 
 .field-container {
     position: relative;
+    justify-content: center;
 }
 
 .form-container {
@@ -56,7 +57,7 @@ body {
     grid-column-gap: 10px;
     grid-template-columns: auto auto;
     grid-template-rows: 90px 90px 90px;
-    grid-template-areas: "name name""number number""expiration security";
+    grid-template-areas: "name name""number number""expiration security""boton boton boton";
     max-width: 400px;
     padding: 20px;
     color: #707070;
@@ -350,4 +351,25 @@ input {
 .creditcard.flipped {
     -webkit-transform: rotateY(180deg);
     transform: rotateY(180deg);
+}
+
+.boton{
+    margin-top: 30px;
+    width: 100%;
+    height: 30px;
+}
+
+.boton_enviar {
+    width: 100%;
+    background-color: transparent;
+    border: 2px solid #FFFFFF;
+    border-radius: 7px;
+    color: white;
+    height: 100%;
+}
+
+.boton_enviar:hover {
+    transform: translateY(-5px);
+    border: 2px solid #EFB810FF;
+    color: #EFB810FF;
 }
