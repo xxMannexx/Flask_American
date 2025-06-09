@@ -22,7 +22,7 @@ def index():
 
 @app.route("/home")
 def sesion():
-    session['id_usuario'] = "3w3sch"
+    session['id_usuario'] = "4pnNeg"
     cursor = db.database.cursor()
     cursor.execute(f"SELECT numero_tarjeta FROM Tarjeta where usuario_tarjeta = '{session['id_usuario']}'")
     consulta = cursor.fetchone()
@@ -177,22 +177,22 @@ def tarjeta():
 @app.route("/tarjeta_recibir", methods=['POST', 'GET'])
 def tarjeta_recibir():
     if request.method == 'POST':
-        numero_tarjeta = request.form['numero_tarjeta']
-        usuario_tarjeta = request.form['usuario_tarjeta']
+        numero_tarjeta = request.form['no_tarjeta']
+        usuario_tarjeta = session['id_usuario']
         cvv = request.form['cvv']
-        fecha_vencimiento = request.form['fecha_vencimiento']
+        fecha_vencimiento = request.form['expira']
 
         cursor = db.database.cursor()
         consulta_recibir = "insert into Tarjeta (numero_tarjeta, usuario_tarjeta,nip,cvv, fecha_vencimiento) values (%s, %s, %s, %s, %s)"
 
-        nip = random.randint(100,999)
+        nip = random.randint(1000,9999)
 
         datos = (numero_tarjeta, usuario_tarjeta,nip,cvv, fecha_vencimiento)
         cursor.execute(consulta_recibir, datos)
         db.database.commit()
         cursor.close()
 
-    return redirect(url_for(''))
+    return redirect(url_for('inicio_sesion'))
 
 
 @app.errorhandler(404)
@@ -405,7 +405,7 @@ def cerrar_sesion():
     return redirect(url_for('registro'))
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8000))
-    app.run(host="0.0.0.0", port=port)
-    # app.run(debug=True)
+    # port = int(os.environ.get("PORT", 8000))
+    # app.run(host="0.0.0.0", port=port)
+    app.run(debug=True)
 
