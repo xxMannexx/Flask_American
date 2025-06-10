@@ -8,7 +8,7 @@ import os
 from dotenv import load_dotenv
 import database as db
 from detectar_cara import detectar_cara
-from Face_recognition import reconocer
+from Face_recognition import reconocer, reconocer2
 from matplotlib.pyplot import style
 import decimal
 load_dotenv()
@@ -25,6 +25,7 @@ def index():
 
 @app.route("/home")
 def sesion():
+    print(session)
     cursor = db.database.cursor()
     cursor.execute(f"SELECT numero_tarjeta FROM Tarjeta where usuario_tarjeta = '{session['id_usuario']}'")
     consulta = cursor.fetchone()
@@ -32,9 +33,12 @@ def sesion():
     session["numero_tarjeta"] = consulta[0]
     print(consulta, session["numero_tarjeta"])
     return render_template("principal_Iframe.html", nombre_usuario = session["id_usuario"])
+
+
 @app.route("/registro", methods=["POST", "GET"])
 def registro():
     cursor = db.database.cursor()
+    error = "nada"
     if request.method == 'POST':
         correo = (request.form['correo']).lower()
         nombre = (request.form['nombre']).lower()
@@ -72,13 +76,17 @@ def registro():
             return redirect(url_for('llamar_video'))
 
         else:
-            return redirect(url_for('index'))
-    return render_template("Registro.html")
+            error = "Alguno de sus datos ya fue registrado, confirme sus datos o contacte con el soporte"
+            return render_template("Registro.html", data = error)
+
+    return render_template("Registro.html", data = error)
 
 
 
 @app.route("/video")
 def llamar_video():
+
+
     return render_template("reconocimiento_registro.html")
 
 @app.route("/video_recibido", methods=["POST", "GET"])
@@ -118,7 +126,13 @@ def video_recibido():
         return jsonify({'mensaje': 'Estas suplantando una identidad'})
     else:
         if len(referencias) == 2:
-            return jsonify({'mensaje': 'Las imagenes estan completas puedes continuar'})
+            print(referencias)
+            flag = reconocer2(ruta_completa, carpeta_referencias)
+            if flag is True:
+                return jsonify({'mensaje': 'Las imagenes estan completas puedes continuar'})
+            else:
+                os.remove(ruta_completa)
+                return jsonify({'mensaje' : 'No son la misma persona'})
         else:
             return jsonify({'mensaje': 'Falta una'})
 
@@ -126,7 +140,12 @@ def video_recibido():
 
 @app.route("/inicio_sesion", methods=['POST', 'GET'])
 def inicio_sesion():
-    return render_template("inicio_sesion.html")
+
+    if session.get('id_usuario') is None:
+        data = ''
+    else:
+        data = {"id_usuario": session['id_usuario']}
+    return render_template("inicio_sesion.html", data=data)
 
 @app.route("/video_inicio_sesion", methods= ["GET","POST"])
 def video_inicio_sesion():
@@ -246,12 +265,26 @@ def plot_png(usuario):
     return Response(output.getvalue(), mimetype='image/png')
 
 def create_figure():
+    cursor = db.database.cursor()
+    cursor.execute(f"select ingresos from estado_cuenta where usuario_cuenta = '{session['numero_tarjeta']}'")
+    ingresos_consulta = cursor.fetchone()
+    print(ingresos_consulta)
+    ingresos = ingresos_consulta[0]
+    cursor.close()
+
+    cursor = db.database.cursor()
+    cursor.execute(f"select gastos from estado_cuenta where usuario_cuenta = '{session['numero_tarjeta']}'")
+    gastos_consulta = cursor.fetchone()
+    print(gastos_consulta)
+    gastos = gastos_consulta[0]
+    cursor.close()
+
     fig = Figure()
     ax = fig.add_subplot(1, 1, 1)
     categorias = ['Ingresos', 'Gastos']
-    valores = [1200,3000]
+    valores = [int(ingresos),(-1)*int(gastos)]
 
-    ax.bar(categorias,valores,color = 'blue')
+    ax.bar(categorias,valores,color = 'gold')
 
     ax.set_title('Comparacion Ingresos/Gastos')
     ax.set_xlabel('Tipo de movimiento')
@@ -287,14 +320,20 @@ def transferencia_ruta_pago():
         monto = request.form['Monto']
         concepto = (request.form['concepto']).title()
 
-
         cursor = db.database.cursor()
         cursor.execute(f"select saldo from Tarjeta where numero_tarjeta = '{session['numero_tarjeta']}'")
         saldo = cursor.fetchone()[0]
         cursor.close()
 
+        cursor = db.database.cursor()
+        cursor.execute(f"select numero_tarjeta from Tarjeta where numero_tarjeta = '{tarjeta}'")
+        comprobacion = cursor.fetchone()
+        cursor.close()
 
-        if tarjeta == session['numero_tarjeta']:
+        if comprobacion == None:
+            error = "No existe la tarjeta a transferir"
+            return render_template("Transferencias.html", data= error)
+        elif tarjeta == session['numero_tarjeta']:
             error = "no puedes transferirte, autista"
             return render_template("Transferencias.html", data= error)
         elif int(monto) > int(saldo):

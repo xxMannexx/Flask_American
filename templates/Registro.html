@@ -25,11 +25,11 @@
                         <label for="Correo" class="form-label" style="color: #b8a780;font-family: 'Inter', sans-serif;">Correo Electronico</label>
                       </div>
                       <div class="form-floating mb-3">
-                        <input style="color: #E0CDA9;caret-color: #F6C445;" type="text" class="form-control bg-transparent border-bottom-0" id="Nombre" name="nombre" placeholder="Nombre" required>
+                        <input style="color: #E0CDA9;caret-color: #F6C445;" type="text" pattern="[A-Za-z]" class="form-control bg-transparent border-bottom-0" id="Nombre" name="nombre" placeholder="Nombre" required>
                         <label for="Nombre" class="form-label" style="color: #b8a780;font-family: 'Inter', sans-serif;">Nombre(s)</label>
                       </div>
                       <div class="form-floating mb-3">
-                        <input style="color: #E0CDA9;caret-color: #F6C445;" type="text" class="form-control bg-transparent border-bottom-0" id="Apellidos" aria-describedby="Apellidos" placeholder="Apellidos" name="apellidos" required>
+                        <input style="color: #E0CDA9;caret-color: #F6C445;" type="text" class="form-control bg-transparent border-bottom-0" pattern="[A-Za-z]" id="Apellidos" aria-describedby="Apellidos" placeholder="Apellidos" name="apellidos" required>
                         <label for="Apellidos" class="form-label" style="color: #b8a780;font-family: 'Inter', sans-serif;">Apellidos</label>
                       </div>
                       <div class="form-floating input-group mb-3">
@@ -45,14 +45,19 @@
                       <button type="submit" class="btn w-100" id="boton_reg">Registrarse</button>
                     </form>
                     <div class="text-center">
-                       <p style="color: #A8925C;font-family: 'Inter', sans-serif;" class="d-inline-block mb-0">¿Ya tienes cuenta?</p> <a href="/video" class="text-light fw-bold text-decoration-none">Inicia sesion ahora</a>
+                       <p style="color: #A8925C;font-family: 'Inter', sans-serif;" class="d-inline-block mb-0">¿Ya tienes cuenta?</p> <a href="/inicio_sesion" class="text-light fw-bold text-decoration-none">Inicia sesion ahora</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <script>
+        if ('{{ data }}' != 'nada' ) {
+            window.alert('{{ data }}');
+        }
 
+    </script>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>

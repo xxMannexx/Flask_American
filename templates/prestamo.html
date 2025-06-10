@@ -21,8 +21,8 @@
                     <div class="container-fluid input-group m-0">
                         <span class="input-group-text color borde">$</span>
                         <div class="form-floating">
-                            <input type="text" class="form-control desabilitar color input borde2" required disabled placeholder="mierda" name="dinero" id="dinero">
-                            <label for="dinero" id="dinero_label" style="color: gold;">Cantidad a pagar</label>
+                            <input type="text" class="form-control desabilitar color input borde2" minlength="1" required disabled placeholder="mierda" name="dinero" id="dinero">
+                            <label for="dinero" id="dinero_label" style="color: gold;">Cantidad a pedir</label>
                         </div>
                         <span class="input-group-text color borde">MXN</span>
                     </div>
@@ -46,7 +46,7 @@
 
     </div>
     <div class="container-fluid row align-items-center justify-content-center mx-auto mt-2">
-        <button type="submit" class="btn btn-outline-warning mx-auto col-11 col-lg-6" id="calcular">Pagar</button>
+        <button type="submit" class="btn btn-outline-warning mx-auto col-11 col-lg-6" id="calcular">Pedir</button>
     </div>
     </form>
     <div class="container color text-center mx-auto mt-5">

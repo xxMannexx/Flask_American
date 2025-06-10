@@ -19,17 +19,17 @@
                     <h1 class="fw-bold mb-4" style="color: #EFB810FF;font-family: 'Inter', sans-serif;">Transferencias</h1>
                     <form class="mb-5" method="POST" action="/transferencia_ruta_pago">
                       <div class="form-floating mb-3">
-                        <input style="color: #E0CDA9;caret-color: #F6C445;" type="tel" class="form-control bg-transparent border-bottom-0" id="Destinatario" aria-describedby="Destinatario" placeholder="Tarjeta De Destino" name="Tarjeta_Destinatario" required>
+                        <input style="color: #E0CDA9;caret-color: #F6C445;" type="tel" minlength="16" class="form-control bg-transparent border-bottom-0" id="Destinatario" aria-describedby="Destinatario" placeholder="Tarjeta De Destino" name="Tarjeta_Destinatario" required>
                         <label for="Destinatario" class="form-label" style="color: #b8a780;font-family: 'Inter', sans-serif;">Destinatario (No. de Tarjeta)</label>
                       </div>
                       <div class="form-floating input-group mb-3">
                         <span class="input-group-text bg-black border-bottom-0" style="color: #b8a780;font-family: 'Inter', sans-serif;">$</span>
-                        <input style="color: #E0CDA9;caret-color: #F6C445;" type="tel" class="form-control bg-transparent border-bottom-0" id="Monto" name="Monto"  placeholder="123 000" maxlength="7" required>
+                        <input style="color: #E0CDA9;caret-color: #F6C445;" minlength="1" type="tel" class="form-control bg-transparent border-bottom-0" id="Monto" name="Monto"  placeholder="123 000" maxlength="7" required>
                         <label for="Telefono" class="form-label ps-5 mx-3" style="color: #b8a780;font-family: 'Inter', sans-serif;">Monto</label>
                         <span class="input-group-text bg-black border-bottom-0" style="color: #b8a780;font-family: 'Inter', sans-serif;">MXN</span>
                       </div>
                       <div class="form-floating mb-3">
-                        <input style="color: #E0CDA9;caret-color: #F6C445;" type="text" class="form-control bg-transparent border-bottom-0" id="Concepto" aria-describedby="Concepto" placeholder="Concepto" name="concepto" required>
+                        <input style="color: #E0CDA9;caret-color: #F6C445;" type="text" minlength="5" class="form-control bg-transparent border-bottom-0" id="Concepto" aria-describedby="Concepto" placeholder="Concepto" name="concepto" required>
                         <label for="Concepto" class="form-label" style="color: #b8a780;font-family: 'Inter', sans-serif;">Concepto</label>
                       </div>
                       <button type="submit" class="btn w-100" id="boton_reg">Generar Transferencia</button>
