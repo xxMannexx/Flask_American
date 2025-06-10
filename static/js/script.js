@@ -16,17 +16,17 @@ let cctype = null;
 var cardnumber_mask = new IMask(cardnumber, {
     mask: [
         {
-            mask: '0000 000000 00000',
+            mask: '000000000000000',
             regex: '^3[47]\\d{0,14}',
             cardtype: 'american express'
         },
         {
-            mask: '0000 000000 00000',
+            mask: '000000000000000',
             regex: '^3[58]\\d{0,14}',
             cardtype: 'american express1'
         },
         {
-            mask: '0000 0000 0000 0000',
+            mask: '0000000000000000',
             cardtype: 'Unknown'
         }
     ],
