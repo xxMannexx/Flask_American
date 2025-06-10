@@ -9,23 +9,30 @@
 </head>
 
 <body class="bg-black">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
-    <div class="container-fluid position-relative">
+    <nav class="navbar navbar-expand-lg py-3" style="background-color: var(--bg-color); border-bottom: 2px solid #efb810;">
+      <div class="container-fluid position-relative">
         <ul class="navbar-nav d-flex flex-row justify-content-between align-items-center w-100">
 
-            <li class="nav-item me-auto">
-                <img src="{{ url_for('static', filename='Imagenes/landinglogo.png') }}" alt="Home" class="img-fluid" style="height: 50px;">
-            </li>
+          <li class="nav-item me-auto">
+            <a href="/" class="d-flex align-items-center">
+              <img src="../static/Imagenes/landinglogo.png" alt="Inicio" class="img-fluid" style="height: 50px; filter: brightness(1.2);" />
+            </a>
+          </li>
 
-            <li class="nav-item mx-auto text-center">
-                <span class="navbar-brand mb-0 h1" style="color: gold; font-size: 1.8rem; font-weight: bold;">RECONOCIMIENTO FACIAL</span>
-            </li>
+          <li class="nav-item position-absolute start-50 translate-middle-x d-none d-lg-block">
+            <span class="navbar-brand mb-0 h1 text-warning" style="font-size: 2rem; font-weight: bold; letter-spacing: 1px;">
+              RECONOCIMIENTO FACIAL
+            </span>
+          </li>
 
-            <li class="nav-item ms-auto">
-                <a href="{{ url_for('registro') }}" class="btn btn-outline-warning boton-registro">Registrarse</a>
-            </li>
+          <li class="nav-item ms-auto">
+            <a href="{{ url_for('registro') }}" class="btn btn-outline-warning">
+              Registrarse
+            </a>
+          </li>
+
         </ul>
-    </div>
+      </div>
     </nav>
 
 
@@ -47,8 +54,8 @@
                 <div  class="bg-black p-1 mx-auto col-lg-4 col-10">
                     <p style="color: gold;" class="text-center align-top text-wrap ">Respuesta del servidor: <span id="respuesta" class="text-center"></span></p>
                 </div>
-                <button id="continuar" class="btn btn-outline-warning mx-auto col-lg-4 col-10 justify-content-center" disabled>
-                    <a href="{{ url_for('sesion') }}" >Continuar</a>
+                <button id="continuar" class="btn btn-outline-warning mx-auto col-lg-4 col-10 justify-content-center p-0" disabled>
+                    <a href="{{ url_for('sesion') }}" style="text-decoration: none; color: gold; display: block; width: 100%;height: 100%" class="align-content-center" >Continuar</a>
                 </button>
 
             </div>

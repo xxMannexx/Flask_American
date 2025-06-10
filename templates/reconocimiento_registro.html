@@ -9,26 +9,30 @@
 </head>
 
 <body class="bg-black">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <ul class="navbar-nav row d-flex justify-content-between">
-                <li class="nav-item col-lg-4 col-2">
-                    <div class="container w-75 m-0 align-items-center">
-                        <a href="#" class="nav-brand ">
-                            <img class="img-fluid" src="../static/Imagenes/landinglogo.png" alt="Home">
-                        </a>
-                    </div>
-                </li>
-                <li class="nav-item col-lg-4 col-0">
-                    <h1 style="color: gold;" class="text-center">RECONOCIMIENTO FACIAL</h1>
-                </li>
-                <li class="nav-item col-lg-4 col-2 align-content-center">
-                    <button href="#" class="btn w-75 btn-outline-warning">Regresar</button>
-                </li>
-            </ul>
+    <nav class="navbar navbar-expand-lg py-3" style="background-color: var(--bg-color); border-bottom: 2px solid #efb810;">
+      <div class="container-fluid position-relative">
+        <ul class="navbar-nav d-flex flex-row justify-content-between align-items-center w-100">
 
+          <li class="nav-item me-auto">
+            <a href="/" class="d-flex align-items-center">
+              <img src="../static/Imagenes/landinglogo.png" alt="Inicio" class="img-fluid" style="height: 50px; filter: brightness(1.2);" />
+            </a>
+          </li>
 
-        </div>
+          <li class="nav-item position-absolute start-50 translate-middle-x d-none d-lg-block">
+            <span class="navbar-brand mb-0 h1 text-warning" style="font-size: 2rem; font-weight: bold; letter-spacing: 1px;">
+              RECONOCIMIENTO FACIAL
+            </span>
+          </li>
+
+          <li class="nav-item ms-auto">
+            <a href="{{ url_for('index') }}" class="btn btn-outline-warning">
+              Inicio
+            </a>
+          </li>
+
+        </ul>
+      </div>
     </nav>
 
     <div class="container-fluid my-5">
@@ -42,8 +46,8 @@
             <div class="bg-black p-1 mx-auto col-lg-4 col-10">
                 <p style="color: gold;" class="text-center align-top text-wrap ">Respuesta del servidor: <span id="respuesta" class="text-center"></span></p>
             </div>
-            <button id="continuar" class="btn btn-outline-warning mx-auto col-lg-4 col-10 justify-content-center" disabled>
-                <a href="{{ url_for('tarjeta') }}" >Continuar</a>
+            <button id="continuar" class="btn btn-outline-warning mx-auto col-lg-4 col-10 p-0 justify-content-center" disabled>
+                <a href="{{ url_for('tarjeta') }}" style="text-decoration: none;color: gold" class="w-100 d-block align-content-center" >Continuar</a>
             </button>
 
         </div>

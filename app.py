@@ -1,6 +1,8 @@
 import datetime
 import io
 import random
+from http.client import HTTPResponse
+
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
 from flask import *
@@ -10,6 +12,7 @@ import database as db
 from detectar_cara import detectar_cara
 from Face_recognition import reconocer, reconocer2
 from matplotlib.pyplot import style
+from generar_documento import crear_pdf
 import decimal
 load_dotenv()
 
@@ -440,8 +443,34 @@ def prestamo_crear():
             f"insert into prestamo(tarjeta_prestamo,monto_prestamo,tasa_prestamo,plazo_prestamo) values(%s,%s,%s,%s)", data)
         db.database.commit()
         cursor.close()
-        return redirect(url_for('transacciones_ruta'))
+        return redirect(url_for('generar_pdf'))
     return redirect(url_for('transacciones_ruta'))
+
+@app.route('/generar_pdf', methods=["GET"])
+def generar_pdf():
+    cursor = db.database.cursor()
+    cursor.execute(f"select nombre from Usuarios where id_usuario = '{session['id_usuario']}'")
+    nombre_consulta = cursor.fetchone()
+    nombre = nombre_consulta[0]
+    cursor.close()
+
+    cursor = db.database.cursor()
+    cursor.execute(f"select * from prestamo where tarjeta_prestamo = '{session['numero_tarjeta']}'")
+    datos_consulta = cursor.fetchall()[0]
+    print(datos_consulta)
+    cursor.close()
+    id_usuario = session['id_usuario']
+    numero_tarjeta = datos_consulta[0]
+    monto = datos_consulta[1]
+    plazo = datos_consulta[3]
+    tasa = '25'
+    fecha = datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
+
+
+    documento = crear_pdf(nombre,numero_tarjeta,id_usuario,fecha,monto,tasa,plazo)
+
+    return make_response(documento.read(), 200, {'Content-Type': 'application/pdf',
+                                                        'Content-Disposition': 'inline; filename=reporte.pdf'})
 
 @app.route("/cerrar_sesion")
 def cerrar_sesion():
