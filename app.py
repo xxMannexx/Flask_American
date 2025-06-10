@@ -284,7 +284,7 @@ def transferencia_ruta_pago():
 
 
         cursor = db.database.cursor()
-        cursor.execute(f"select saldo from Tarjeta where numero_tarjeta = '{session["numero_tarjeta"]}'")
+        cursor.execute(f"select saldo from Tarjeta where numero_tarjeta = '{session['numero_tarjeta']}'")
         saldo = cursor.fetchone()[0]
         cursor.close()
 
@@ -317,7 +317,7 @@ def pant_pagos_pago():
         monto = request.form['monto']
 
         cursor = db.database.cursor()
-        cursor.execute(f"select saldo from Tarjeta where numero_tarjeta = '{session["numero_tarjeta"]}'")
+        cursor.execute(f"select saldo from Tarjeta where numero_tarjeta = '{session['numero_tarjeta']}'")
         saldo = cursor.fetchone()[0]
         cursor.close()
         if int(monto) > int(saldo):
@@ -353,7 +353,7 @@ def inversion_crear():
     if request.method == 'POST':
         dinero = (request.form['dinero'])
         cursor = db.database.cursor()
-        cursor.execute(f"select saldo from Tarjeta where numero_tarjeta = '{session["numero_tarjeta"]}'")
+        cursor.execute(f"select saldo from Tarjeta where numero_tarjeta = '{session['numero_tarjeta']}'")
         saldo = cursor.fetchone()[0]
         cursor.close()
         if int(dinero) > int(saldo):
