@@ -7,7 +7,7 @@ app = Flask(__name__)
 @app.route('/')
 def home():
     cursor = db.database.cursor()
-    cursor.execute("SELECT * FROM usuarios")
+    cursor.execute("SELECT * FROM Usuarios")
     usuarios = cursor.fetchall()
 
     #Convertir los datos a diccionario
@@ -31,17 +31,17 @@ def agregar_usuario():
 
     if username and nombre and contra:
         cursor = db.database.cursor()
-        consulta = 'INSERT INTO usuarios (username, nombre, contra) VALUES (%s, %s, %s)'
+        consulta = 'INSERT INTO Usuarios (username, nombre, contra) VALUES (%s, %s, %s)'
         data = (username, nombre, contra)
         cursor.execute(consulta, data)
         db.database.commit()
 
-        return redirect(url_for('home'))
+    return redirect(url_for('home'))
 
 @app.route('/eliminar/<int:id>')
 def eliminar(id):
     cursor = db.database.cursor()
-    consulta = 'DELETE FROM usuarios WHERE id = %s'
+    consulta = 'DELETE FROM Usuarios WHERE id = %s'
     data = (id,)
     cursor.execute(consulta, data)
     db.database.commit()

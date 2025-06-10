@@ -9,8 +9,11 @@ from dotenv import load_dotenv
 import database as db
 from detectar_cara import detectar_cara
 from Face_recognition import reconocer
+from matplotlib.pyplot import style
 import decimal
 load_dotenv()
+
+style.use('dark_background')
 
 app = Flask(__name__,template_folder='templates')
 app.secret_key = os.getenv("SECRET_KEY")
@@ -22,7 +25,6 @@ def index():
 
 @app.route("/home")
 def sesion():
-    session['id_usuario'] = "4pnNeg"
     cursor = db.database.cursor()
     cursor.execute(f"SELECT numero_tarjeta FROM Tarjeta where usuario_tarjeta = '{session['id_usuario']}'")
     consulta = cursor.fetchone()
@@ -43,6 +45,9 @@ def registro():
 
         id_usuario = f"{apellidos[0:2]}{telefono[-2:]}{fecha[-2:]}"
         #em04
+
+        #Consulta para
+
         Flag_Comprobation = False
 
         if nombre.isdigit() is True or apellidos.isdigit() is True:
@@ -181,13 +186,13 @@ def tarjeta_recibir():
         usuario_tarjeta = session['id_usuario']
         cvv = request.form['cvv']
         fecha_vencimiento = request.form['expira']
-
+        saldo = random.randint(1000, 100000)
         cursor = db.database.cursor()
-        consulta_recibir = "insert into Tarjeta (numero_tarjeta, usuario_tarjeta,nip,cvv, fecha_vencimiento) values (%s, %s, %s, %s, %s)"
+        consulta_recibir = "insert into Tarjeta (numero_tarjeta, usuario_tarjeta,nip,cvv, fecha_vencimiento,saldo) values (%s, %s, %s, %s, %s,%s)"
 
         nip = random.randint(1000,9999)
 
-        datos = (numero_tarjeta, usuario_tarjeta,nip,cvv, fecha_vencimiento)
+        datos = (numero_tarjeta, usuario_tarjeta,nip,cvv, fecha_vencimiento,saldo)
         cursor.execute(consulta_recibir, datos)
         db.database.commit()
         cursor.close()
