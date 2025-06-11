@@ -26,6 +26,8 @@ app.secret_key = os.getenv("SECRET_KEY")
 def index():
     return render_template("Inicio.html")
 
+
+
 @app.route("/home")
 def sesion():
     print(session)
@@ -44,8 +46,8 @@ def registro():
     error = "nada"
     if request.method == 'POST':
         correo = (request.form['correo']).lower()
-        nombre = (request.form['nombre']).lower()
-        apellidos = (request.form['apellidos']).lower()
+        nombre = (request.form['nombre']).title()
+        apellidos = (request.form['apellidos']).title()
         telefono = request.form['telefono']
         fecha = request.form['fecha']
 
@@ -196,6 +198,7 @@ def video_inicio_sesion():
 @app.route('/Tarjeta')
 def tarjeta():
     cursor = db.database.cursor()
+    print(session)
     cursor.execute(f"select nombre from Usuarios where id_usuario = '{session['id_usuario']}'")
     nombre_consulta = cursor.fetchone()
     nombre = nombre_consulta[0]
@@ -213,7 +216,7 @@ def tarjeta_recibir():
         cursor = db.database.cursor()
         consulta_recibir = "insert into Tarjeta (numero_tarjeta, usuario_tarjeta,nip,cvv, fecha_vencimiento,saldo) values (%s, %s, %s, %s, %s,%s)"
 
-        nip = random.randint(1000,9999)
+        nip = random.randint(100,10000)
 
         datos = (numero_tarjeta, usuario_tarjeta,nip,cvv, fecha_vencimiento,saldo)
         cursor.execute(consulta_recibir, datos)
@@ -229,6 +232,7 @@ def not_found(e):
 
 @app.route("/estado_cuenta_ruta")
 def estado_cuenta_ruta():
+    print("dashboard:", session)
     lista = []
     cursor = db.database.cursor()
     cursor.execute(f"select saldo from Tarjeta where usuario_tarjeta = '{session['id_usuario']}'")
@@ -297,6 +301,7 @@ def create_figure():
     return fig
 @app.route("/transacciones_ruta")
 def transacciones_ruta():
+    print("transacciones:", session)
     def consultas(columna):
         cursor = db.database.cursor()
         cursor.execute(f"select {columna} from transacciones where tarjeta_transaccion = '{session['numero_tarjeta']}'")
@@ -315,6 +320,7 @@ def transacciones_ruta():
 
 @app.route("/transferencia_ruta" , methods=["GET","POST"])
 def transferencia_ruta():
+    print("transferencia:", session)
     error = "nada"
     return render_template("Transferencias.html", data=error)
 @app.route("/transferencia_ruta_pago", methods=["GET","POST"])
@@ -354,6 +360,7 @@ def transferencia_ruta_pago():
     return redirect(url_for('transacciones_ruta'))
 @app.route("/Pant_pagos", methods=["GET","POST"])
 def pant_pagos():
+    print("transacciones:", session)
     error = "nada"
     return render_template("Pant_pagos.html", data=error)
 
@@ -381,6 +388,7 @@ def pant_pagos_pago():
     return redirect(url_for('transacciones_ruta'))
 @app.route("/inversiones")
 def inversiones():
+    print("inversiones:", session)
     lista = {"hay":True, "monto_inversion": 0, "tasa_gat":0, "ganancia_mes": 0, "error":"nada"}
     cursor = db.database.cursor()
     cursor.execute(f"select * from inversion where tarjeta_inversion = '{session['numero_tarjeta']}'")
@@ -418,6 +426,7 @@ def inversion_crear():
 
 @app.route("/Prestamos")
 def prestamos():
+    print("transacciones:", session)
     lista = {"hay": True, "monto_prestamo": 0, "tasa_prestamo": "activo", "plazo_prestamo": 0}
     cursor = db.database.cursor()
     cursor.execute(f"select * from prestamo where tarjeta_prestamo = '{session['numero_tarjeta']}'")
@@ -458,37 +467,8 @@ def prestamo_crear():
         documento = crear_pdf(nombre, session['numero_tarjeta'], id_usuario, fecha, int(dinero), tasa, int(plazos))
 
         return make_response(documento.read(), 200, {'Content-Type': 'application/pdf',
-                                                     'Content-Disposition': 'inline; filename=reporte.pdf'})
-
-
+                                                     'Content-Disposition': f'inline; filename={id_usuario}_reporte.pdf'})
     return redirect(url_for('transacciones_ruta'))
-
-# @app.route('/<usuario>/generar_pdf', methods=["GET"])
-# def generar_pdf(usuario):
-#     usuario = session['id_usuario']
-#     cursor = db.database.cursor()
-#     cursor.execute(f"select nombre from Usuarios where id_usuario = '{session['id_usuario']}'")
-#     nombre_consulta = cursor.fetchone()
-#     nombre = nombre_consulta[0]
-#     cursor.close()
-#
-#     cursor = db.database.cursor()
-#     cursor.execute(f"select * from prestamo where tarjeta_prestamo = '{session['numero_tarjeta']}'")
-#     datos_consulta = cursor.fetchall()[0]
-#     print(datos_consulta)
-#     cursor.close()
-#     id_usuario = session['id_usuario']
-#     numero_tarjeta = datos_consulta[0]
-#     monto = datos_consulta[1]
-#     plazo = datos_consulta[3]
-#     tasa = '25'
-#     fecha = datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
-#
-#
-#     documento = crear_pdf(nombre,numero_tarjeta,id_usuario,fecha,monto,tasa,plazo)
-#
-#     return make_response(documento.read(), 200, {'Content-Type': 'application/pdf',
-#                                                         'Content-Disposition': 'inline; filename=reporte.pdf'})
 
 @app.route("/cerrar_sesion")
 def cerrar_sesion():

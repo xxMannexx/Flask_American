@@ -19,7 +19,7 @@
                     <h1 class="fw-bold mb-4" style="color: #EFB810FF;font-family: 'Inter', sans-serif;">Transferencias</h1>
                     <form class="mb-5" method="POST" action="/transferencia_ruta_pago">
                       <div class="form-floating mb-3">
-                        <input style="color: #E0CDA9;caret-color: #F6C445;" type="tel" minlength="16" class="form-control bg-transparent border-bottom-0" id="Destinatario" aria-describedby="Destinatario" placeholder="Tarjeta De Destino" name="Tarjeta_Destinatario" required>
+                        <input style="color: #E0CDA9;caret-color: #F6C445;" type="tel" maxlength="16" minlength="16" class="form-control bg-transparent border-bottom-0" id="Destinatario" aria-describedby="Destinatario" placeholder="Tarjeta De Destino" name="Tarjeta_Destinatario" required>
                         <label for="Destinatario" class="form-label" style="color: #b8a780;font-family: 'Inter', sans-serif;">Destinatario (No. de Tarjeta)</label>
                       </div>
                       <div class="form-floating input-group mb-3">
