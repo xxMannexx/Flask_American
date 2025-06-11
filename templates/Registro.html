@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>American Express: Registrate</title>
     <link rel="stylesheet" href="../static/css/estilos_registro.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -25,11 +26,11 @@
                         <label for="Correo" class="form-label" style="color: #b8a780;font-family: 'Inter', sans-serif;">Correo Electronico</label>
                       </div>
                       <div class="form-floating mb-3">
-                        <input style="color: #E0CDA9;caret-color: #F6C445;" type="text" pattern="[A-Za-z]" class="form-control bg-transparent border-bottom-0" id="Nombre" name="nombre" placeholder="Nombre" required>
+                        <input style="color: #E0CDA9;caret-color: #F6C445;" type="text" pattern="^([A-Za-zÁÉÍÓÚáéíóúÑñ]+ ?){1,3}$" class="form-control bg-transparent border-bottom-0" id="Nombre" name="nombre" placeholder="Nombre" required>
                         <label for="Nombre" class="form-label" style="color: #b8a780;font-family: 'Inter', sans-serif;">Nombre(s)</label>
                       </div>
                       <div class="form-floating mb-3">
-                        <input style="color: #E0CDA9;caret-color: #F6C445;" type="text" class="form-control bg-transparent border-bottom-0" pattern="[A-Za-z]" id="Apellidos" aria-describedby="Apellidos" placeholder="Apellidos" name="apellidos" required>
+                        <input style="color: #E0CDA9;caret-color: #F6C445;" type="text" class="form-control bg-transparent border-bottom-0" pattern="^([A-Za-zÁÉÍÓÚáéíóúÑñ]+ ?){1,3}$" id="Apellidos" aria-describedby="Apellidos" placeholder="Apellidos" name="apellidos" required>
                         <label for="Apellidos" class="form-label" style="color: #b8a780;font-family: 'Inter', sans-serif;">Apellidos</label>
                       </div>
                       <div class="form-floating input-group mb-3">
