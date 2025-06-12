@@ -466,31 +466,30 @@ def prestamos():
 
 @app.route("/prestamo_crear", methods=["GET","POST"])
 def prestamo_crear():
-    if request.method == 'POST':
-        dinero = (request.form['dinero'])
-        plazos = (request.form['selec'])
-        cursor = db.database.cursor()
-        id_usuario = session['id_usuario']
-        numero_tarjeta = session['numero_tarjeta']
-        data = [numero_tarjeta, int(dinero), 0.25, int(plazos)]
-        print(data)
-        cursor.execute(
-            f"insert into prestamo(tarjeta_prestamo,monto_prestamo,tasa_prestamo,plazo_prestamo) values(%s,%s,%s,%s)", data)
-        db.database.commit()
-        cursor.close()
-        cursor = db.database.cursor()
-        cursor.execute(f"select nombre from Usuarios where id_usuario = '{id_usuario}'")
-        nombre_consulta = cursor.fetchone()
-        nombre = nombre_consulta[0]
-        cursor.close()
+    dinero = (request.form['dinero'])
+    plazos = (request.form['selec'])
+    cursor = db.database.cursor()
+    id_usuario = session['id_usuario']
+    numero_tarjeta = session['numero_tarjeta']
+    data = [numero_tarjeta, int(dinero), 0.25, int(plazos)]
+    print(data)
+    cursor.execute(
+        f"insert into prestamo(tarjeta_prestamo,monto_prestamo,tasa_prestamo,plazo_prestamo) values(%s,%s,%s,%s)", data)
+    db.database.commit()
+    cursor.close()
+    cursor = db.database.cursor()
+    cursor.execute(f"select nombre from Usuarios where id_usuario = '{id_usuario}'")
+    nombre_consulta = cursor.fetchone()
+    nombre = nombre_consulta[0]
+    cursor.close()
 
-        fecha = datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
+    fecha = datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
 
-        documento = crear_pdf(nombre.title(), numero_tarjeta, id_usuario, fecha, int(dinero), "25", int(plazos))
+    documento = crear_pdf(nombre.title(), numero_tarjeta, id_usuario, fecha, int(dinero), "25", int(plazos))
 
-        return make_response(documento.read(), 200, {'Content-Type': 'application/pdf',
-                                                     'Content-Disposition': f'inline; filename={id_usuario}_reporte.pdf'})
-    return redirect(url_for('transacciones_ruta'))
+    return make_response(documento.read(), 200, {'Content-Type': 'application/pdf',
+                                                 'Content-Disposition': f'inline; filename={id_usuario}_reporte.pdf'})
+
 
 @app.route("/cerrar_sesion")
 def cerrar_sesion():
