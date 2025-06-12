@@ -32,7 +32,6 @@ def index():
 def sesion():
     print(session)
     id_usuario = session['id_usuario']
-    numero_tarjeta = session['numero_tarjeta']
     cursor = db.database.cursor()
     cursor.execute(f"SELECT numero_tarjeta FROM Tarjeta where usuario_tarjeta = '{id_usuario}'")
     consulta = cursor.fetchone()
