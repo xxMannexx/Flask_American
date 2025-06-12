@@ -488,7 +488,7 @@ def prestamo_crear():
     documento = crear_pdf(nombre.title(), numero_tarjeta, id_usuario, fecha, int(dinero), "25", int(plazos))
 
     return make_response(documento.read(), 200, {'Content-Type': 'application/pdf',
-                                                 'Content-Disposition': f'inline; filename={id_usuario}_reporte.pdf'})
+                                                 'Content-Disposition': 'inline; filename=reporte.pdf'})
 
 
 @app.route("/cerrar_sesion")
