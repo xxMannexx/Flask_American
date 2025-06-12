@@ -31,13 +31,15 @@ def index():
 @app.route("/home")
 def sesion():
     print(session)
+    id_usuario = session['id_usuario']
+    numero_tarjeta = session['numero_tarjeta']
     cursor = db.database.cursor()
-    cursor.execute(f"SELECT numero_tarjeta FROM Tarjeta where usuario_tarjeta = '{session['id_usuario']}'")
+    cursor.execute(f"SELECT numero_tarjeta FROM Tarjeta where usuario_tarjeta = '{id_usuario}'")
     consulta = cursor.fetchone()
     cursor.close()
     session["numero_tarjeta"] = consulta[0]
     print(consulta, session["numero_tarjeta"])
-    return render_template("principal_Iframe.html", nombre_usuario = session["id_usuario"])
+    return render_template("principal_Iframe.html", nombre_usuario = id_usuario)
 
 
 @app.route("/registro", methods=["POST", "GET"])
@@ -46,7 +48,7 @@ def registro():
     error = "nada"
     if request.method == 'POST':
         correo = (request.form['correo']).lower()
-        nombre = (request.form['nombre']).title()
+        nombre = (request.form['nombre']).lower()
         apellidos = (request.form['apellidos']).title()
         telefono = request.form['telefono']
         fecha = request.form['fecha']
@@ -99,18 +101,19 @@ def video_recibido():
     if 'imagen' not in request.files:
         return jsonify({'error': 'No se encontró el archivo'}), 400
     imagen = request.files['imagen']
+    id_usuario = session['id_usuario']
+    numero_tarjeta = session['numero_tarjeta']
 
-
-    carpeta_usuario = os.path.join('imagenes_usuarios', session['id_usuario'])
+    carpeta_usuario = os.path.join('imagenes_usuarios', id_usuario)
     os.makedirs(carpeta_usuario, exist_ok=True)
 
-    nombre_archivo = session['id_usuario'] + datetime.datetime.now().strftime("%Y%m%d%H%M%S") + ".jpeg"
+    nombre_archivo = id_usuario + datetime.datetime.now().strftime("%Y%m%d%H%M%S") + ".jpeg"
     ruta_completa = os.path.join(carpeta_usuario, nombre_archivo)
 
     imagen.save(ruta_completa)
 
     # Carpeta que contiene las imágenes de referencia
-    carpeta_referencias = './imagenes_usuarios/' + session['id_usuario']
+    carpeta_referencias = './imagenes_usuarios/' + id_usuario
     print(carpeta_referencias)
     extensiones_validas = (".jpg", ".jpeg", ".png")
 
@@ -155,7 +158,9 @@ def inicio_sesion():
     if session.get('id_usuario') is None:
         data = ''
     else:
-        data = {"id_usuario": session['id_usuario']}
+        id_usuario = session['id_usuario']
+        numero_tarjeta = session['numero_tarjeta']
+        data = {"id_usuario": id_usuario}
 
     return render_template("inicio_sesion.html", data=data)
 
@@ -183,7 +188,6 @@ def video_inicio_sesion():
 
     try:
         comprobacion = detectar_cara(ruta_completa)
-        print(comprobacion)
         if (comprobacion[0])["is_real"] is False:
             os.remove(ruta_completa)
             return jsonify({'mensaje': 'Estas suplantando una identidad'})
@@ -205,7 +209,8 @@ def video_inicio_sesion():
 def tarjeta():
     cursor = db.database.cursor()
     print(session)
-    cursor.execute(f"select nombre from Usuarios where id_usuario = '{session['id_usuario']}'")
+    id_usuario = session['id_usuario']
+    cursor.execute(f"select nombre from Usuarios where id_usuario = '{id_usuario}'")
     nombre_consulta = cursor.fetchone()
     nombre = nombre_consulta[0]
     cursor.close()
@@ -240,21 +245,23 @@ def not_found(e):
 def estado_cuenta_ruta():
     print("dashboard:", session)
     lista = []
+    id_usuario = session['id_usuario']
+    no_tarjeta = session['numero_tarjeta']
     cursor = db.database.cursor()
-    cursor.execute(f"select saldo from Tarjeta where usuario_tarjeta = '{session['id_usuario']}'")
+    cursor.execute(f"select saldo from Tarjeta where usuario_tarjeta = '{id_usuario}'")
     consulta = cursor.fetchone()
     numero = consulta[0]
     cursor.close()
 
     cursor = db.database.cursor()
-    cursor.execute(f"select ingresos from estado_cuenta where usuario_cuenta = '{session['numero_tarjeta']}'")
+    cursor.execute(f"select ingresos from estado_cuenta where usuario_cuenta = '{no_tarjeta}'")
     ingresos_consulta = cursor.fetchone()
     print(ingresos_consulta)
     ingresos = ingresos_consulta[0]
     cursor.close()
 
     cursor = db.database.cursor()
-    cursor.execute(f"select gastos from estado_cuenta where usuario_cuenta = '{session['numero_tarjeta']}'")
+    cursor.execute(f"select gastos from estado_cuenta where usuario_cuenta = '{no_tarjeta}'")
     gastos_consulta = cursor.fetchone()
     print(gastos_consulta)
     gastos = gastos_consulta[0]
@@ -265,7 +272,7 @@ def estado_cuenta_ruta():
         "saldo": f"${numero}",
         "ingresos": f"${ingresos}",
         "gastos": f"${gastos}",
-        "ruta" : session['id_usuario']
+        "ruta" : id_usuario
     }
     print(datos["ruta"])
     return render_template('dashboard.html', data=datos)
@@ -279,15 +286,16 @@ def plot_png(usuario):
     return Response(output.getvalue(), mimetype='image/png')
 
 def create_figure():
+    numero_tarjeta = session['numero_tarjeta']
     cursor = db.database.cursor()
-    cursor.execute(f"select ingresos from estado_cuenta where usuario_cuenta = '{session['numero_tarjeta']}'")
+    cursor.execute(f"select ingresos from estado_cuenta where usuario_cuenta = '{numero_tarjeta}'")
     ingresos_consulta = cursor.fetchone()
     print(ingresos_consulta)
     ingresos = ingresos_consulta[0]
     cursor.close()
 
     cursor = db.database.cursor()
-    cursor.execute(f"select gastos from estado_cuenta where usuario_cuenta = '{session['numero_tarjeta']}'")
+    cursor.execute(f"select gastos from estado_cuenta where usuario_cuenta = '{numero_tarjeta}'")
     gastos_consulta = cursor.fetchone()
     print(gastos_consulta)
     gastos = gastos_consulta[0]
@@ -308,9 +316,11 @@ def create_figure():
 @app.route("/transacciones_ruta")
 def transacciones_ruta():
     print("transacciones:", session)
+    id_usuario = session['id_usuario']
+    numero_tarjeta = session['numero_tarjeta']
     def consultas(columna):
         cursor = db.database.cursor()
-        cursor.execute(f"select {columna} from transacciones where tarjeta_transaccion = '{session['numero_tarjeta']}'")
+        cursor.execute(f"select {columna} from transacciones where tarjeta_transaccion = '{numero_tarjeta}'")
         lista = cursor.fetchall()
         cursor.close()
         return lista
@@ -331,13 +341,15 @@ def transferencia_ruta():
     return render_template("Transferencias.html", data=error)
 @app.route("/transferencia_ruta_pago", methods=["GET","POST"])
 def transferencia_ruta_pago():
+    id_usuario = session['id_usuario']
+    numero_tarjeta = session['numero_tarjeta']
     if request.method == 'POST':
         tarjeta = (request.form['Tarjeta_Destinatario'])
         monto = request.form['Monto']
         concepto = (request.form['concepto']).title()
 
         cursor = db.database.cursor()
-        cursor.execute(f"select saldo from Tarjeta where numero_tarjeta = '{session['numero_tarjeta']}'")
+        cursor.execute(f"select saldo from Tarjeta where numero_tarjeta = '{numero_tarjeta}'")
         saldo = cursor.fetchone()[0]
         cursor.close()
 
@@ -349,7 +361,7 @@ def transferencia_ruta_pago():
         if comprobacion == None:
             error = "No existe la tarjeta a transferir"
             return render_template("Transferencias.html", data= error)
-        elif tarjeta == session['numero_tarjeta']:
+        elif tarjeta == numero_tarjeta:
             error = "no puedes transferirte, autista"
             return render_template("Transferencias.html", data= error)
         elif int(monto) > int(saldo):
@@ -358,7 +370,7 @@ def transferencia_ruta_pago():
         else:
             cursor = db.database.cursor()
             consulta = "insert into transferencias (emisor_tarjeta, receptor_tarjeta, monto, concepto) values(%s,%s,%s,%s)"
-            datos = [(session["numero_tarjeta"]), tarjeta, int(monto), concepto]
+            datos = [(numero_tarjeta), tarjeta, int(monto), concepto]
             print(datos)
             cursor.execute(consulta,datos)
             db.database.commit()
@@ -373,12 +385,14 @@ def pant_pagos():
 @app.route("/Pant_pagos_pago", methods=["GET","POST"])
 def pant_pagos_pago():
     if request.method == 'POST':
+        id_usuario = session['id_usuario']
+        numero_tarjeta = session['numero_tarjeta']
         servicio = (request.form['servicio'])
         numero = (request.form['numero'])
         monto = request.form['monto']
 
         cursor = db.database.cursor()
-        cursor.execute(f"select saldo from Tarjeta where numero_tarjeta = '{session['numero_tarjeta']}'")
+        cursor.execute(f"select saldo from Tarjeta where numero_tarjeta = '{numero_tarjeta}'")
         saldo = cursor.fetchone()[0]
         cursor.close()
         if int(monto) > int(saldo):
@@ -387,7 +401,7 @@ def pant_pagos_pago():
         else:
             cursor = db.database.cursor()
             consulta = "insert into pago_servicio (tarjeta_servicio, nombre_servicio, monto_servicio, no_servicio) values(%s,%s,%s,%s)"
-            datos = [(session["numero_tarjeta"]), servicio, int(monto), numero]
+            datos = [(numero_tarjeta), servicio, int(monto), numero]
             print(datos)
             cursor.execute(consulta,datos)
             db.database.commit()
@@ -395,9 +409,11 @@ def pant_pagos_pago():
 @app.route("/inversiones")
 def inversiones():
     print("inversiones:", session)
+    id_usuario = session['id_usuario']
+    numero_tarjeta = session['numero_tarjeta']
     lista = {"hay":True, "monto_inversion": 0, "tasa_gat":0, "ganancia_mes": 0, "error":"nada"}
     cursor = db.database.cursor()
-    cursor.execute(f"select * from inversion where tarjeta_inversion = '{session['numero_tarjeta']}'")
+    cursor.execute(f"select * from inversion where tarjeta_inversion = '{numero_tarjeta}'")
     consulta = cursor.fetchone()
 
     if consulta:
@@ -413,9 +429,11 @@ def inversiones():
 @app.route("/inversion_crear", methods=["GET","POST"])
 def inversion_crear():
     if request.method == 'POST':
+        id_usuario = session['id_usuario']
+        numero_tarjeta = session['numero_tarjeta']
         dinero = (request.form['dinero'])
         cursor = db.database.cursor()
-        cursor.execute(f"select saldo from Tarjeta where numero_tarjeta = '{session['numero_tarjeta']}'")
+        cursor.execute(f"select saldo from Tarjeta where numero_tarjeta = '{numero_tarjeta}'")
         saldo = cursor.fetchone()[0]
         cursor.close()
         if int(dinero) > int(saldo):
@@ -423,7 +441,7 @@ def inversion_crear():
             return render_template("Transferencias.html", data=error)
         else:
             cursor = db.database.cursor()
-            data = [session["numero_tarjeta"], int(dinero),0.15,(int(dinero)*0.15)]
+            data = [numero_tarjeta, int(dinero),0.15,(int(dinero)*0.15)]
             print(data)
             cursor.execute(f"insert into inversion(tarjeta_inversion,monto_inversion,tasa_gat,ganancia_mes) values(%s,%s,%s,%s)", data)
             db.database.commit()
@@ -433,9 +451,11 @@ def inversion_crear():
 @app.route("/Prestamos")
 def prestamos():
     print("transacciones:", session)
+    id_usuario = session['id_usuario']
+    numero_tarjeta = session['numero_tarjeta']
     lista = {"hay": True, "monto_prestamo": 0, "tasa_prestamo": "activo", "plazo_prestamo": 0}
     cursor = db.database.cursor()
-    cursor.execute(f"select * from prestamo where tarjeta_prestamo = '{session['numero_tarjeta']}'")
+    cursor.execute(f"select * from prestamo where tarjeta_prestamo = '{numero_tarjeta}'")
     consulta = cursor.fetchone()
     if consulta:
         print(consulta)
@@ -453,24 +473,23 @@ def prestamo_crear():
         dinero = (request.form['dinero'])
         plazos = (request.form['selec'])
         cursor = db.database.cursor()
-        data = [session["numero_tarjeta"], int(dinero), 0.25, int(plazos)]
+        id_usuario = session['id_usuario']
+        numero_tarjeta = session['numero_tarjeta']
+        data = [numero_tarjeta, int(dinero), 0.25, int(plazos)]
         print(data)
         cursor.execute(
             f"insert into prestamo(tarjeta_prestamo,monto_prestamo,tasa_prestamo,plazo_prestamo) values(%s,%s,%s,%s)", data)
         db.database.commit()
         cursor.close()
         cursor = db.database.cursor()
-        cursor.execute(f"select nombre from Usuarios where id_usuario = '{session['id_usuario']}'")
+        cursor.execute(f"select nombre from Usuarios where id_usuario = '{id_usuario}'")
         nombre_consulta = cursor.fetchone()
         nombre = nombre_consulta[0]
         cursor.close()
 
-
-        id_usuario = session['id_usuario']
-        tasa = '25'
         fecha = datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
 
-        documento = crear_pdf(nombre, session['numero_tarjeta'], id_usuario, fecha, int(dinero), tasa, int(plazos))
+        documento = crear_pdf(nombre.title(), numero_tarjeta, id_usuario, fecha, int(dinero), "25", int(plazos))
 
         return make_response(documento.read(), 200, {'Content-Type': 'application/pdf',
                                                      'Content-Disposition': f'inline; filename={id_usuario}_reporte.pdf'})
