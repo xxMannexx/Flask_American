@@ -1,8 +1,6 @@
 import datetime
 import io
 import random
-from http.client import HTTPResponse
-
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
 from flask import *
@@ -13,7 +11,6 @@ from detectar_cara import detectar_cara
 from Face_recognition import reconocer, reconocer2
 from matplotlib.pyplot import style
 from generar_documento import crear_pdf
-import decimal
 load_dotenv()
 
 style.use('dark_background')
@@ -488,7 +485,7 @@ def prestamo_crear():
     documento = crear_pdf(nombre.title(), numero_tarjeta, id_usuario, fecha, int(dinero), "25", int(plazos))
 
     return make_response(documento.read(), 200, {'Content-Type': 'application/pdf',
-                                                 'Content-Disposition': 'inline; filename=reporte.pdf'})
+                                                 'Content-Disposition': 'attachment; filename=reporte.pdf'})
 
 
 @app.route("/cerrar_sesion")
