@@ -124,7 +124,7 @@ def video_recibido():
     print(len(referencias))
     print(ruta_completa)
     comprobacion = detectar_cara(ruta_completa)
-    print(comprobacion)
+
 
     if (comprobacion[0])["is_real"] is False:
         os.remove(ruta_completa)
