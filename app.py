@@ -102,7 +102,6 @@ def video_recibido():
         return jsonify({'error': 'No se encontró el archivo'}), 400
     imagen = request.files['imagen']
     id_usuario = session['id_usuario']
-    numero_tarjeta = session['numero_tarjeta']
 
     carpeta_usuario = os.path.join('imagenes_usuarios', id_usuario)
     os.makedirs(carpeta_usuario, exist_ok=True)
@@ -159,7 +158,6 @@ def inicio_sesion():
         data = ''
     else:
         id_usuario = session['id_usuario']
-        numero_tarjeta = session['numero_tarjeta']
         data = {"id_usuario": id_usuario}
 
     return render_template("inicio_sesion.html", data=data)
