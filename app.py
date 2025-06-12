@@ -123,23 +123,29 @@ def video_recibido():
 
     print(len(referencias))
     print(ruta_completa)
-    comprobacion = detectar_cara(ruta_completa)
+
+    try:
+        comprobacion = detectar_cara(ruta_completa)
 
 
-    if (comprobacion[0])["is_real"] is False:
-        os.remove(ruta_completa)
-        return jsonify({'mensaje': 'Estas suplantando una identidad'})
-    else:
-        if len(referencias) == 2:
-            print(referencias)
-            flag = reconocer2(ruta_completa, carpeta_referencias)
-            if flag is True:
-                return jsonify({'mensaje': 'Las imagenes estan completas puedes continuar'})
-            else:
-                os.remove(ruta_completa)
-                return jsonify({'mensaje' : 'No son la misma persona'})
+        if (comprobacion[0])["is_real"] is False:
+            os.remove(ruta_completa)
+            return jsonify({'mensaje': 'Estas suplantando una identidad'})
         else:
-            return jsonify({'mensaje': 'Falta una'})
+            if len(referencias) >= 2:
+                print(referencias)
+                flag = reconocer2(ruta_completa, carpeta_referencias)
+                if flag is True:
+                    return jsonify({'mensaje': 'Las imagenes estan completas puedes continuar'})
+                else:
+                    for x in referencias:
+                        os.remove(x)
+                    return jsonify({'mensaje' : 'No son la misma persona'})
+            else:
+                return jsonify({'mensaje': 'Falta una'})
+    except ValueError:
+        os.remove(ruta_completa)
+        return jsonify({'mensaje': 'No se encontro un rostro.'})
 
 
 
