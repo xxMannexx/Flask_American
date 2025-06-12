@@ -49,7 +49,7 @@ def registro():
     if request.method == 'POST':
         correo = (request.form['correo']).lower()
         nombre = (request.form['nombre']).lower()
-        apellidos = (request.form['apellidos']).title()
+        apellidos = (request.form['apellidos']).lower()
         telefono = request.form['telefono']
         fecha = request.form['fecha']
 
